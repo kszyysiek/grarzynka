@@ -1,114 +1,64 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { BRAND } from '@/data/brand';
+import FacadeView from '@/components/three/FacadeView';
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let animId: number;
-    let t = 0;
-
-    const draw = () => {
-      const W = canvas.width;
-      const H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
-
-      // Draw atmospheric vertical fin silhouettes
-      const fw = 28;
-      const gap = 14;
-      const pitch = fw + gap;
-      const count = Math.ceil(W / pitch) + 2;
-
-      for (let i = 0; i < count; i++) {
-        const x = i * pitch - (t % pitch);
-        // Metallic gradient
-        const g = ctx.createLinearGradient(x, 0, x + fw, 0);
-        g.addColorStop(0, 'rgba(30,25,20,0.7)');
-        g.addColorStop(0.3, 'rgba(55,48,38,0.75)');
-        g.addColorStop(0.65, 'rgba(45,38,30,0.7)');
-        g.addColorStop(1, 'rgba(25,20,16,0.6)');
-        ctx.fillStyle = g;
-        ctx.fillRect(x, 0, fw, H);
-
-        // LED glow in gap
-        const gx = x + fw;
-        const gl = ctx.createLinearGradient(gx, 0, gx + gap, 0);
-        gl.addColorStop(0, 'rgba(0,0,0,0)');
-        gl.addColorStop(0.4, 'rgba(212,180,131,0.08)');
-        gl.addColorStop(0.6, 'rgba(212,180,131,0.08)');
-        gl.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.fillStyle = gl;
-        ctx.fillRect(gx, 0, gap, H);
-      }
-
-      t += 0.18;
-      animId = requestAnimationFrame(draw);
-    };
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-    };
-
-    resize();
-    draw();
-
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas);
-    return () => {
-      cancelAnimationFrame(animId);
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <section
       id="hero"
       className="relative flex flex-col justify-end overflow-hidden"
       style={{ minHeight: '100svh', background: 'var(--color-base)' }}
     >
-      {/* Animated background fins */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ opacity: 0.45 }}
-        aria-hidden="true"
-      />
+      {/* Immersive 3D façade — full bleed */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <FacadeView
+          variant="hero"
+          eager
+          pattern={[90, 30, 15]}
+          gap={30}
+          night={false}
+          surface="anodisiert"
+        />
+      </div>
 
-      {/* Vertical gradient to darken bottom */}
+      {/* Cinematic gradient grading for text legibility */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(12,10,9,0.55) 0%, rgba(12,10,9,0.2) 40%, rgba(12,10,9,0.85) 85%, rgba(12,10,9,1) 100%)',
+            'linear-gradient(105deg, rgba(12,10,9,0.92) 0%, rgba(12,10,9,0.55) 32%, rgba(12,10,9,0.05) 55%, rgba(12,10,9,0.0) 70%, rgba(12,10,9,0.4) 100%)',
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 pointer-events-none"
+        style={{
+          height: '45%',
+          background:
+            'linear-gradient(to bottom, rgba(12,10,9,0) 0%, rgba(12,10,9,0.75) 70%, rgba(12,10,9,1) 100%)',
         }}
         aria-hidden="true"
       />
 
       {/* Content */}
-      <div className="container-wide relative z-10 pb-20">
+      <div className="container-wide relative z-10 pb-24 pointer-events-none">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.4, duration: 0.7 }}
+          transition={{ delay: 2.3, duration: 0.8 }}
           className="eyebrow mb-6"
         >
           Modulares Lamellensystem · Aluminiumguss
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.6, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 2.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="display-xl text-ivory"
+          style={{ textShadow: '0 2px 40px rgba(0,0,0,0.6)' }}
         >
           Die Kunst der{' '}
           <em style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>
@@ -119,9 +69,15 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.9, duration: 0.8 }}
+          transition={{ delay: 2.8, duration: 0.9 }}
           className="mt-6 max-w-xl"
-          style={{ fontSize: '1rem', color: 'var(--color-text-dim)', lineHeight: 1.75, fontWeight: 300 }}
+          style={{
+            fontSize: '1.05rem',
+            color: 'var(--color-text-dim)',
+            lineHeight: 1.75,
+            fontWeight: 300,
+            textShadow: '0 1px 20px rgba(0,0,0,0.7)',
+          }}
         >
           Ein Fassadensystem für Architektur,<br />
           die nicht laut sein muss, um gesehen zu werden.
@@ -130,8 +86,8 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.2, duration: 0.7 }}
-          className="mt-10 flex flex-wrap gap-4"
+          transition={{ delay: 3.1, duration: 0.8 }}
+          className="mt-10 flex flex-wrap gap-4 pointer-events-auto"
         >
           <a href="#kontakt" className="btn-primary">
             Muster anfragen
@@ -146,8 +102,8 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3.5, duration: 1 }}
-        className="absolute bottom-8 right-8 flex flex-col items-center gap-3"
+        transition={{ delay: 3.4, duration: 1 }}
+        className="absolute bottom-8 right-8 flex flex-col items-center gap-3 z-10"
         aria-hidden="true"
       >
         <span
@@ -162,9 +118,6 @@ export default function Hero() {
           style={{ width: '1px', height: '40px', background: 'var(--color-accent)', opacity: 0.5 }}
         />
       </motion.div>
-
-      {/* Wordmark top-left spacer */}
-      <div className="absolute top-0 left-0 right-0 h-14" />
     </section>
   );
 }

@@ -1,12 +1,13 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import FacadeView from '@/components/three/FacadeView';
 
 export default function Lichtintegration() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-10% 0px' });
-  const [isNight, setIsNight] = useState(false);
+  const [isNight, setIsNight] = useState(true);
 
   return (
     <section
@@ -20,68 +21,74 @@ export default function Lichtintegration() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="mb-14"
+          className="mb-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
         >
-          <p className="chapter-num mb-3">V. — Lichtintegration</p>
-          <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
-          <h2 className="display-lg text-ivory">
-            Nach Dämmerung:{' '}
-            <em style={{ color: 'var(--color-accent)' }}>die zweite Fassade.</em>
-          </h2>
+          <div>
+            <p className="chapter-num mb-3">V. — Lichtintegration</p>
+            <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
+            <h2 className="display-lg text-ivory">
+              Nach Dämmerung:{' '}
+              <em style={{ color: 'var(--color-accent)' }}>die zweite Fassade.</em>
+            </h2>
+          </div>
           <p
-            className="mt-5 max-w-xl"
-            style={{ fontSize: '0.9rem', color: 'var(--color-text-dim)', lineHeight: 1.85 }}
+            className="max-w-sm"
+            style={{ fontSize: '0.85rem', color: 'var(--color-text-dim)', lineHeight: 1.85 }}
           >
             Die Profilgeometrie nimmt LED-Bänder auf und verwandelt die Schattenfuge in
             eine Lichtfuge. Steuerbar in Warmweiß und Farbe.
           </p>
         </motion.div>
 
-        {/* Day/night visualisation */}
+        {/* 3D day/night visualisation */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative"
-          style={{ height: 'clamp(260px, 35vw, 480px)', overflow: 'hidden', cursor: 'pointer' }}
-          onClick={() => setIsNight(!isNight)}
-          role="button"
-          aria-label={isNight ? 'Zur Tagesansicht wechseln' : 'Zur Nachtansicht wechseln'}
-          tabIndex={0}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setIsNight(!isNight); }}
+          style={{
+            height: 'clamp(320px, 44vw, 560px)',
+            overflow: 'hidden',
+            border: '1px solid var(--color-hairline)',
+            background: '#0c0a09',
+          }}
         >
-          {/* Background — transitions night/day */}
-          <motion.div
-            animate={{ background: isNight ? '#020201' : '#0c0a09' }}
-            transition={{ duration: 1.2, ease: 'easeInOut' }}
-            style={{ position: 'absolute', inset: 0 }}
+          <FacadeView
+            variant="config"
+            pattern={[90, 30, 15]}
+            gap={30}
+            night={isNight}
+            surface="anodisiert"
           />
 
-          {/* Fins */}
-          <FinDisplay isNight={isNight} />
-
-          {/* Toggle label */}
+          {/* Toggle */}
           <div
             style={{
               position: 'absolute',
-              top: '1.25rem',
-              right: '1.25rem',
+              top: '1rem',
+              right: '1rem',
               display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: 'rgba(0,0,0,0.4)',
-              backdropFilter: 'blur(8px)',
-              padding: '0.5rem 0.875rem',
+              gap: '0.25rem',
+              background: 'rgba(12,10,9,0.55)',
+              backdropFilter: 'blur(10px)',
+              padding: '0.3rem',
               border: '1px solid var(--color-hairline)',
             }}
           >
-            <motion.div
-              animate={{ background: isNight ? 'var(--color-accent)' : 'rgba(255,255,255,0.2)' }}
-              style={{ width: '6px', height: '6px', borderRadius: '50%' }}
-            />
-            <span style={{ fontSize: '0.65rem', color: 'var(--color-text-dim)', letterSpacing: '0.12em' }}>
-              {isNight ? 'Nacht · LED' : 'Tag · Klicken zum Wechseln'}
-            </span>
+            <button
+              onClick={() => setIsNight(false)}
+              className={`segment-btn ${!isNight ? 'active' : ''}`}
+              style={{ border: 'none' }}
+            >
+              Tag
+            </button>
+            <button
+              onClick={() => setIsNight(true)}
+              className={`segment-btn ${isNight ? 'active' : ''}`}
+              style={{ border: 'none' }}
+            >
+              Nacht · LED
+            </button>
           </div>
 
           {/* Caption */}
@@ -91,8 +98,9 @@ export default function Lichtintegration() {
               bottom: '1rem',
               left: '1.25rem',
               fontSize: '0.62rem',
-              color: 'rgba(239,233,221,0.35)',
+              color: 'rgba(239,233,221,0.4)',
               fontStyle: 'italic',
+              pointerEvents: 'none',
             }}
           >
             Schattenfuge wird Lichtfuge — Visualisierung, schematisch
@@ -129,75 +137,5 @@ export default function Lichtintegration() {
         </motion.div>
       </div>
     </section>
-  );
-}
-
-function FinDisplay({ isNight }: { isNight: boolean }) {
-  const FIN_PATTERN = [90, 30, 15, 30, 90, 30, 15, 90, 30, 15, 30, 90];
-  const GAP = 16;
-  const SCALE = 1.4;
-
-  const fins = FIN_PATTERN.map((w) => w * SCALE);
-
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        inset: 0,
-        display: 'flex',
-        gap: `${GAP}px`,
-        padding: '0 2rem',
-        alignItems: 'stretch',
-        overflow: 'hidden',
-      }}
-    >
-      {fins.map((fw, i) => (
-        <div key={i} style={{ display: 'flex', gap: 0, flexShrink: 0 }}>
-          {/* Gap glow (before each fin except first) */}
-          {i > 0 && (
-            <motion.div
-              animate={{
-                background: isNight
-                  ? 'radial-gradient(ellipse at center, rgba(240,200,120,0.95) 0%, rgba(212,170,90,0.7) 30%, rgba(180,140,60,0.2) 70%, transparent 100%)'
-                  : 'linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.85), rgba(0,0,0,0.7))',
-              }}
-              transition={{ duration: 1.4, ease: 'easeInOut' }}
-              style={{ width: `${GAP}px`, height: '100%', flexShrink: 0 }}
-            />
-          )}
-          {/* Fin */}
-          <motion.div
-            animate={{
-              background: isNight
-                ? `linear-gradient(to right, #0e0c0a, #1e1a16, #161210)`
-                : `linear-gradient(to right, #505048 0%, #a09888 25%, #c8c0b0 50%, #a09888 75%, #585048 100%)`,
-            }}
-            transition={{ duration: 1.2, ease: 'easeInOut' }}
-            style={{
-              width: `${fw}px`,
-              height: '100%',
-              flexShrink: 0,
-              borderTop: `1px solid ${isNight ? 'rgba(212,180,131,0.08)' : 'rgba(255,255,255,0.15)'}`,
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Subtle highlight streak */}
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: '25%',
-                width: '15%',
-                background: isNight
-                  ? 'transparent'
-                  : 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%)',
-              }}
-            />
-          </motion.div>
-        </div>
-      ))}
-    </div>
   );
 }
