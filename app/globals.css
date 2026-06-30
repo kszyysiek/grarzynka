@@ -1,0 +1,331 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap');
+
+:root {
+  --color-base: #0c0a09;
+  --color-surface: #15120f;
+  --color-accent: #d4b483;
+  --color-accent-dim: #b89868;
+  --color-text: #efe9dd;
+  --color-text-dim: rgba(239, 233, 221, 0.58);
+  --color-text-dimmer: rgba(239, 233, 221, 0.32);
+  --color-hairline: rgba(212, 180, 131, 0.14);
+  --color-hairline-strong: rgba(212, 180, 131, 0.28);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-text);
+  font-family: 'Jost', system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Film grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 300px 300px;
+}
+
+/* Typography */
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Jost', system-ui, sans-serif;
+}
+
+/* Chapter labels */
+.chapter-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--color-accent);
+}
+
+.eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-text-dim);
+}
+
+/* Hairlines */
+.hairline-h {
+  height: 1px;
+  background: var(--color-hairline);
+  border: none;
+}
+
+.hairline-v {
+  width: 1px;
+  background: var(--color-hairline);
+}
+
+/* Display headings */
+.display-xl {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.display-lg {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.display-md {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.2;
+}
+
+/* Section padding */
+.section-pad {
+  padding-top: clamp(5rem, 10vw, 9rem);
+  padding-bottom: clamp(5rem, 10vw, 9rem);
+}
+
+/* Container */
+.container-wide {
+  max-width: 88rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.5rem, 5vw, 4rem);
+  padding-right: clamp(1.5rem, 5vw, 4rem);
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 2rem;
+  background: var(--color-accent);
+  color: #0c0a09;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-dim);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  color: var(--color-text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-hairline-strong);
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Input fields */
+.input-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-hairline);
+  color: var(--color-text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 0.875rem;
+  padding: 0.875rem 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.input-field:focus {
+  border-color: var(--color-accent-dim);
+}
+
+.input-field::placeholder {
+  color: var(--color-text-dimmer);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-dim);
+}
+
+/* Selection */
+::selection {
+  background: rgba(212, 180, 131, 0.18);
+  color: var(--color-text);
+}
+
+/* Segment control */
+.segment-btn {
+  padding: 0.5rem 1.25rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--color-hairline);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: all 0.35s ease;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.segment-btn:hover {
+  border-color: var(--color-accent-dim);
+  color: var(--color-text);
+}
+
+.segment-btn.active {
+  background: rgba(212, 180, 131, 0.12);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Table */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.spec-table tr {
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.spec-table td {
+  padding: 0.875rem 0;
+  vertical-align: top;
+}
+
+.spec-table td:first-child {
+  color: var(--color-text-dim);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  width: 45%;
+  padding-right: 2rem;
+}
+
+.spec-table td:last-child {
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+/* Result rows */
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.result-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-dim);
+}
+
+.result-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 300;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+}
+
+/* Filter buttons */
+.filter-btn {
+  padding: 0.45rem 1rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--color-hairline);
+  color: var(--color-text-dim);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Lightbox overlay */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 10, 9, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
