@@ -100,7 +100,7 @@ export default function Kalkulator() {
           transition={{ duration: 0.7 }}
           className="mb-14"
         >
-          <p className="chapter-num mb-3">VIII. — Kalkulator</p>
+          <p className="chapter-num mb-3">IX. — Kalkulator</p>
           <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
           <h2 className="display-lg text-ivory">
             Profilmengen{' '}
@@ -257,7 +257,7 @@ export default function Kalkulator() {
                 border: '1px solid var(--color-hairline)',
                 padding: '2rem',
                 minHeight: '320px',
-                background: 'rgba(12,10,9,0.5)',
+                background: 'var(--color-card)',
               }}
             >
               {!hasInputs ? (

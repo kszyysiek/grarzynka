@@ -8,11 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        base: '#0c0a09',
-        surface: '#15120f',
-        accent: '#d4b483',
-        'accent-dim': '#b89868',
-        ivory: '#efe9dd',
+        base: '#f2ece2',
+        surface: '#e8decf',
+        accent: '#a3743f',
+        'accent-dim': '#b98f57',
+        ivory: '#2c2620', // repurposed: primary heading/text color on light theme
       },
       fontFamily: {
         serif: ['Cormorant Garamond', 'Georgia', 'serif'],

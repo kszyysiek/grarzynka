@@ -7,6 +7,7 @@ import Justierung from '@/components/Justierung';
 import Material from '@/components/Material';
 import Lichtintegration from '@/components/Lichtintegration';
 import Visualisierung from '@/components/Visualisierung';
+import Rundgang from '@/components/Rundgang';
 import Projekte from '@/components/Projekte';
 import Kalkulator from '@/components/Kalkulator';
 import Technik from '@/components/Technik';
@@ -27,6 +28,7 @@ export default function Home() {
         <Material />
         <Lichtintegration />
         <Visualisierung />
+        <Rundgang />
         <Projekte />
         <Kalkulator />
         <Technik />

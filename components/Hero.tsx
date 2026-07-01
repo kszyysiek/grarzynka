@@ -1,49 +1,35 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BRAND } from '@/data/brand';
 import FacadeView from '@/components/three/FacadeView';
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col justify-end overflow-hidden"
-      style={{ minHeight: '100svh', background: 'var(--color-base)' }}
+      className="relative flex flex-col justify-center overflow-hidden"
+      style={{
+        minHeight: '100svh',
+        background: 'linear-gradient(180deg, #e2e9ef 0%, #ebe3d6 60%, #f2ece2 100%)',
+      }}
     >
-      {/* Immersive 3D façade — full bleed */}
+      {/* Rotating 3D building — full bleed */}
       <div className="absolute inset-0" aria-hidden="true">
-        <FacadeView
-          variant="hero"
-          eager
-          pattern={[90, 30, 15]}
-          gap={30}
-          night={false}
-          surface="anodisiert"
-        />
+        <FacadeView kind="building" eager />
       </div>
 
-      {/* Cinematic gradient grading for text legibility */}
+      {/* Soft grading for text legibility on the left */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(105deg, rgba(12,10,9,0.92) 0%, rgba(12,10,9,0.55) 32%, rgba(12,10,9,0.05) 55%, rgba(12,10,9,0.0) 70%, rgba(12,10,9,0.4) 100%)',
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-x-0 bottom-0 pointer-events-none"
-        style={{
-          height: '45%',
-          background:
-            'linear-gradient(to bottom, rgba(12,10,9,0) 0%, rgba(12,10,9,0.75) 70%, rgba(12,10,9,1) 100%)',
+            'linear-gradient(100deg, rgba(242,236,226,0.92) 0%, rgba(242,236,226,0.6) 26%, rgba(242,236,226,0.08) 46%, rgba(242,236,226,0) 62%)',
         }}
         aria-hidden="true"
       />
 
       {/* Content */}
-      <div className="container-wide relative z-10 pb-24 pointer-events-none">
+      <div className="container-wide relative z-10 pointer-events-none">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -58,7 +44,6 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="display-xl text-ivory"
-          style={{ textShadow: '0 2px 40px rgba(0,0,0,0.6)' }}
         >
           Die Kunst der{' '}
           <em style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>
@@ -70,16 +55,15 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.8, duration: 0.9 }}
-          className="mt-6 max-w-xl"
+          className="mt-6 max-w-md"
           style={{
             fontSize: '1.05rem',
             color: 'var(--color-text-dim)',
             lineHeight: 1.75,
             fontWeight: 300,
-            textShadow: '0 1px 20px rgba(0,0,0,0.7)',
           }}
         >
-          Ein Fassadensystem für Architektur,<br />
+          Ein Fassadensystem für Architektur,
           die nicht laut sein muss, um gesehen zu werden.
         </motion.p>
 
@@ -92,11 +76,19 @@ export default function Hero() {
           <a href="#kontakt" className="btn-primary">
             Muster anfragen
           </a>
-          <a href="#system" className="btn-ghost">
-            System entdecken
+          <a href="#rundgang" className="btn-ghost">
+            Virtueller Rundgang
           </a>
         </motion.div>
       </div>
+
+      {/* Caption */}
+      <p
+        className="absolute bottom-6 left-0 right-0 text-center pointer-events-none"
+        style={{ fontSize: '0.6rem', color: 'var(--color-text-dimmer)', fontStyle: 'italic', letterSpacing: '0.08em' }}
+      >
+        Gebäudestudie mit KANELO-Fassade — Visualisierung, schematisch · Zeiger bewegen
+      </p>
 
       {/* Scroll indicator */}
       <motion.div
@@ -115,7 +107,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-          style={{ width: '1px', height: '40px', background: 'var(--color-accent)', opacity: 0.5 }}
+          style={{ width: '1px', height: '40px', background: 'var(--color-accent)', opacity: 0.6 }}
         />
       </motion.div>
     </section>

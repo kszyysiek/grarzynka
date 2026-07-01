@@ -52,7 +52,7 @@ export default function Projekte() {
           transition={{ duration: 0.7 }}
           className="mb-10"
         >
-          <p className="chapter-num mb-3">VII. — Projekte</p>
+          <p className="chapter-num mb-3">VIII. — Projekte</p>
           <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
           <h2 className="display-lg text-ivory">
             System im{' '}

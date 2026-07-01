@@ -23,7 +23,7 @@ export default function Technik() {
           transition={{ duration: 0.7 }}
           className="mb-14"
         >
-          <p className="chapter-num mb-3">IX. — Technik</p>
+          <p className="chapter-num mb-3">X. — Technik</p>
           <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
           <h2 className="display-lg text-ivory">
             Technische{' '}

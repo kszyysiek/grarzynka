@@ -95,7 +95,9 @@ export default function Visualisierung() {
           }}
         >
           <FacadeView
+            kind="facade"
             variant="config"
+            orbit
             pattern={COMPOSITIONS[comp]}
             gap={GAPS[gapKey]}
             night={time === 'nacht'}
@@ -114,7 +116,7 @@ export default function Visualisierung() {
               pointerEvents: 'none',
             }}
           >
-            Visualisierung — schematisch · Bewegen Sie den Zeiger für Perspektive
+            Visualisierung — schematisch · Ziehen zum Drehen, Scrollen zum Zoomen
           </p>
 
           {/* Time toggle — floating top right */}

@@ -5,15 +5,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap');
 
 :root {
-  --color-base: #0c0a09;
-  --color-surface: #15120f;
-  --color-accent: #d4b483;
-  --color-accent-dim: #b89868;
-  --color-text: #efe9dd;
-  --color-text-dim: rgba(239, 233, 221, 0.58);
-  --color-text-dimmer: rgba(239, 233, 221, 0.32);
-  --color-hairline: rgba(212, 180, 131, 0.14);
-  --color-hairline-strong: rgba(212, 180, 131, 0.28);
+  /* Light, warm, editorial palette */
+  --color-base: #f2ece2;        /* warm cream — primary background */
+  --color-surface: #e8decf;     /* warm sand — alternating sections */
+  --color-card: #f8f3ea;        /* lighter card surface */
+  --color-accent: #a3743f;      /* warm bronze — readable on light */
+  --color-accent-dim: #b98f57;  /* softer brass */
+  --color-text: #2c2620;        /* warm near-black */
+  --color-text-dim: rgba(44, 38, 32, 0.66);
+  --color-text-dimmer: rgba(44, 38, 32, 0.42);
+  --color-hairline: rgba(120, 88, 52, 0.20);
+  --color-hairline-strong: rgba(120, 88, 52, 0.34);
 }
 
 *,
@@ -40,15 +42,16 @@ body {
   overflow-x: hidden;
 }
 
-/* Film grain overlay */
+/* Film grain overlay — very subtle on light */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 300px 300px;
 }
@@ -73,7 +76,7 @@ body::after {
 
 .eyebrow {
   font-family: 'Jost', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -137,8 +140,8 @@ body::after {
   align-items: center;
   gap: 0.75rem;
   padding: 0.875rem 2rem;
-  background: var(--color-accent);
-  color: #0c0a09;
+  background: var(--color-text);
+  color: var(--color-base);
   font-family: 'Jost', sans-serif;
   font-weight: 400;
   font-size: 0.72rem;
@@ -146,12 +149,14 @@ body::after {
   text-transform: uppercase;
   text-decoration: none;
   transition: all 0.4s ease;
-  border: none;
+  border: 1px solid var(--color-text);
   cursor: pointer;
 }
 
 .btn-primary:hover {
-  background: var(--color-accent-dim);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
 }
 
 .btn-ghost {
@@ -162,7 +167,7 @@ body::after {
   background: transparent;
   color: var(--color-text);
   font-family: 'Jost', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -180,7 +185,7 @@ body::after {
 /* Input fields */
 .input-field {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--color-hairline);
   color: var(--color-text);
   font-family: 'Jost', sans-serif;
@@ -194,7 +199,7 @@ body::after {
 }
 
 .input-field:focus {
-  border-color: var(--color-accent-dim);
+  border-color: var(--color-accent);
 }
 
 .input-field::placeholder {
@@ -203,10 +208,10 @@ body::after {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 3px;
+  width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-base);
+  background: var(--color-surface);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-accent-dim);
@@ -214,7 +219,7 @@ body::after {
 
 /* Selection */
 ::selection {
-  background: rgba(212, 180, 131, 0.18);
+  background: rgba(163, 116, 63, 0.22);
   color: var(--color-text);
 }
 
@@ -223,7 +228,7 @@ body::after {
   padding: 0.5rem 1.25rem;
   font-family: 'Jost', sans-serif;
   font-size: 0.7rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   background: transparent;
@@ -241,9 +246,9 @@ body::after {
 }
 
 .segment-btn.active {
-  background: rgba(212, 180, 131, 0.12);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-base);
 }
 
 /* Table */
@@ -292,7 +297,7 @@ body::after {
 .result-value {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.35rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--color-accent);
   letter-spacing: 0.02em;
 }
@@ -302,7 +307,7 @@ body::after {
   padding: 0.45rem 1rem;
   font-family: 'Jost', sans-serif;
   font-size: 0.68rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   background: transparent;
@@ -323,7 +328,8 @@ body::after {
 .lightbox-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(12, 10, 9, 0.95);
+  background: rgba(28, 23, 18, 0.78);
+  backdrop-filter: blur(6px);
   z-index: 1000;
   display: flex;
   align-items: center;

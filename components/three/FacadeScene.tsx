@@ -16,6 +16,7 @@ export interface FacadeConfig {
 
 interface FacadeSceneProps extends FacadeConfig {
   variant: 'hero' | 'config';
+  orbit?: boolean;
 }
 
 // 1 mm = 0.01 world units
@@ -220,7 +221,7 @@ export default function FacadeScene(props: FacadeSceneProps) {
       </Environment>
 
       <Fins {...props} />
-      <Rig variant={props.variant} />
+      {!props.orbit && <Rig variant={props.variant} />}
     </>
   );
 }

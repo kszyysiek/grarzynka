@@ -52,7 +52,7 @@ export default function Anwendung() {
           transition={{ duration: 0.7 }}
           className="mb-14"
         >
-          <p className="chapter-num mb-3">X. — Anwendung</p>
+          <p className="chapter-num mb-3">XI. — Anwendung</p>
           <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
           <h2 className="display-lg text-ivory">
             Von außen bis{' '}

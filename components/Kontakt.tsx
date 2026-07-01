@@ -52,7 +52,7 @@ export default function Kontakt() {
           transition={{ duration: 0.7 }}
           className="mb-14"
         >
-          <p className="chapter-num mb-3">XI. — Kontakt & Bemusterung</p>
+          <p className="chapter-num mb-3">XII. — Kontakt & Bemusterung</p>
           <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
           <h2 className="display-lg text-ivory">
             Erleben Sie das System{' '}
