@@ -10,6 +10,7 @@ const APPLICATIONS = [
     sub: 'Hinterlüftete Fassade',
     desc: 'Das primäre Anwendungsfeld. Vertikale Aluminiumlamellen auf verdeckter Unterkonstruktion — hinterlüftet, wartungsfreundlich, dauerhaft.',
     detail: 'Kompatibel mit gängigen Fassadenunterkonstruktionen. Systemlösung für Neubau und Sanierung.',
+    photo: '/renders/villa-day.jpg',
   },
   {
     num: '02',
@@ -17,6 +18,7 @@ const APPLICATIONS = [
     sub: 'Wandverkleidung Innen',
     desc: 'Konsequente Formensprache von außen nach innen. Dasselbe System, dieselbe Detailqualität — für Foyers, Showrooms, Wohn- und Hotelräume.',
     detail: 'Leichte Trockenmontage. Demontierbar und flexibel in der Komposition.',
+    photo: '/renders/lobby-empfang.jpg',
   },
   {
     num: '03',
@@ -74,14 +76,26 @@ export default function Anwendung() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 * (i + 1) }}
-              style={{ background: 'var(--color-base)', padding: '2.5rem', position: 'relative' }}
+              style={{ background: 'var(--color-base)', position: 'relative', overflow: 'hidden' }}
             >
+              {'photo' in app && app.photo && (
+                <div style={{ height: 'clamp(180px, 20vw, 260px)', overflow: 'hidden', position: 'relative' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={app.photo}
+                    alt={app.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  />
+                </div>
+              )}
+              <div style={{ padding: '2.5rem', position: 'relative' }}>
               <span
                 className="font-serif"
                 style={{
                   fontSize: '3rem',
                   fontWeight: 300,
-                  color: 'rgba(212,180,131,0.12)',
+                  color: 'rgba(163,116,63,0.18)',
                   position: 'absolute',
                   top: '1.5rem',
                   right: '1.5rem',
@@ -109,6 +123,7 @@ export default function Anwendung() {
               <p style={{ fontSize: '0.78rem', color: 'var(--color-text-dimmer)', lineHeight: 1.75 }}>
                 {app.detail}
               </p>
+              </div>
             </motion.div>
           ))}
         </div>

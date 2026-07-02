@@ -1,67 +1,121 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import FacadeView from '@/components/three/FacadeView';
+
+const LINE = {
+  hidden: { y: '112%' },
+  visible: (d: number) => ({
+    y: '0%',
+    transition: { delay: d, duration: 1.05, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+};
+
+const STATS = [
+  { value: '03', unit: '', label: 'Formate — 90 · 30 · 15 mm' },
+  { value: '4', unit: 'mm', label: 'Integrierter Justierweg' },
+  { value: '100', unit: '%', label: 'Entwickelt & gefertigt in Deutschland' },
+];
+
+const CREAM = '#efe6d7';
+const CREAM_DIM = 'rgba(239,230,215,0.72)';
+const CREAM_DIMMER = 'rgba(239,230,215,0.45)';
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex flex-col justify-center overflow-hidden"
-      style={{
-        minHeight: '100svh',
-        background: 'linear-gradient(180deg, #e2e9ef 0%, #ebe3d6 60%, #f2ece2 100%)',
-      }}
+      className="relative flex flex-col justify-end overflow-hidden"
+      style={{ minHeight: '100svh', background: '#1a1c22' }}
     >
-      {/* Rotating 3D building — full bleed */}
-      <div className="absolute inset-0" aria-hidden="true">
-        <FacadeView kind="building" eager />
-      </div>
+      {/* Photoreal render — full bleed */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/renders/penthouse-night.jpg"
+        alt="KANELO Lamellenwand mit integrierter LED-Lichtfuge auf einer Penthouse-Terrasse bei Dämmerung"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ objectPosition: '38% center' }}
+        fetchPriority="high"
+      />
 
-      {/* Soft grading for text legibility on the left */}
+      {/* Cinematic grading */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'linear-gradient(100deg, rgba(242,236,226,0.92) 0%, rgba(242,236,226,0.6) 26%, rgba(242,236,226,0.08) 46%, rgba(242,236,226,0) 62%)',
+            'linear-gradient(100deg, rgba(16,15,17,0.82) 0%, rgba(16,15,17,0.45) 30%, rgba(16,15,17,0.05) 55%, rgba(16,15,17,0) 70%)',
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 pointer-events-none"
+        style={{
+          height: '55%',
+          background:
+            'linear-gradient(to bottom, rgba(16,15,17,0) 0%, rgba(16,15,17,0.55) 60%, rgba(16,15,17,0.82) 100%)',
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 top-0 pointer-events-none"
+        style={{
+          height: '20%',
+          background: 'linear-gradient(to top, rgba(16,15,17,0) 0%, rgba(16,15,17,0.45) 100%)',
         }}
         aria-hidden="true"
       />
 
       {/* Content */}
-      <div className="container-wide relative z-10 pointer-events-none">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.3, duration: 0.8 }}
-          className="eyebrow mb-6"
+      <div className="container-wide relative z-10 pointer-events-none" style={{ paddingBottom: '5.5rem' }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.35, duration: 0.6 }}
+          className="mb-7 flex items-center gap-4"
         >
-          Modulares Lamellensystem · Aluminiumguss
-        </motion.p>
+          <span style={{ width: '3rem', height: '1px', background: '#c9a166', display: 'block' }} />
+          <p
+            style={{
+              fontSize: '0.7rem',
+              letterSpacing: '0.25em',
+              textTransform: 'uppercase',
+              color: CREAM_DIM,
+              fontWeight: 400,
+            }}
+          >
+            Modulares Lamellensystem · Aluminiumguss
+          </p>
+        </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="display-xl text-ivory"
-        >
-          Die Kunst der{' '}
-          <em style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>
-            Gliederung.
-          </em>
-        </motion.h1>
+        <h1 className="display-xl" style={{ maxWidth: '13ch', color: CREAM }}>
+          <span className="block overflow-hidden">
+            <motion.span className="block" variants={LINE} initial="hidden" animate="visible" custom={2.45}>
+              Die Kunst
+            </motion.span>
+          </span>
+          <span className="block overflow-hidden">
+            <motion.span className="block" variants={LINE} initial="hidden" animate="visible" custom={2.58}>
+              der{' '}
+              <em
+                style={{
+                  fontStyle: 'italic',
+                  backgroundImage: 'linear-gradient(120deg, #e8c68e 0%, #b98f57 70%)',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                }}
+              >
+                Gliederung.
+              </em>
+            </motion.span>
+          </span>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.8, duration: 0.9 }}
-          className="mt-6 max-w-md"
-          style={{
-            fontSize: '1.05rem',
-            color: 'var(--color-text-dim)',
-            lineHeight: 1.75,
-            fontWeight: 300,
-          }}
+          transition={{ delay: 3.0, duration: 0.9 }}
+          className="mt-7 max-w-md"
+          style={{ fontSize: '1.02rem', color: CREAM_DIM, lineHeight: 1.8, fontWeight: 300 }}
         >
           Ein Fassadensystem für Architektur,
           die nicht laut sein muss, um gesehen zu werden.
@@ -70,44 +124,97 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.1, duration: 0.8 }}
+          transition={{ delay: 3.25, duration: 0.8 }}
           className="mt-10 flex flex-wrap gap-4 pointer-events-auto"
         >
-          <a href="#kontakt" className="btn-primary">
-            Muster anfragen
+          <a
+            href="#kontakt"
+            className="btn-primary"
+            style={{ background: '#c9a166', borderColor: '#c9a166', color: '#1a1712' }}
+          >
+            Muster anfragen <span className="btn-arrow">→</span>
           </a>
-          <a href="#rundgang" className="btn-ghost">
+          <a
+            href="#rundgang"
+            className="btn-ghost"
+            style={{ borderColor: 'rgba(239,230,215,0.35)', color: CREAM }}
+          >
             Virtueller Rundgang
           </a>
         </motion.div>
-      </div>
 
-      {/* Caption */}
-      <p
-        className="absolute bottom-6 left-0 right-0 text-center pointer-events-none"
-        style={{ fontSize: '0.6rem', color: 'var(--color-text-dimmer)', fontStyle: 'italic', letterSpacing: '0.08em' }}
-      >
-        Gebäudestudie mit KANELO-Fassade — Visualisierung, schematisch · Zeiger bewegen
-      </p>
+        {/* Stats row */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 3.5, duration: 0.9 }}
+          className="mt-14 grid grid-cols-1 sm:grid-cols-3 max-w-2xl"
+          style={{ borderTop: '1px solid rgba(239,230,215,0.22)' }}
+        >
+          {STATS.map((s, i) => (
+            <div
+              key={s.label}
+              className="py-5 pr-8"
+              style={{
+                borderLeft: i > 0 ? '1px solid rgba(239,230,215,0.14)' : 'none',
+                paddingLeft: i > 0 ? '1.75rem' : 0,
+              }}
+            >
+              <div className="flex items-baseline gap-1">
+                <span
+                  className="font-serif"
+                  style={{ fontSize: '2.4rem', fontWeight: 300, color: CREAM, lineHeight: 1 }}
+                >
+                  {s.value}
+                </span>
+                {s.unit && (
+                  <span
+                    className="font-serif"
+                    style={{ fontSize: '1.1rem', fontStyle: 'italic', color: '#c9a166' }}
+                  >
+                    {s.unit}
+                  </span>
+                )}
+              </div>
+              <p
+                style={{
+                  marginTop: '0.5rem',
+                  fontSize: '0.66rem',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  color: CREAM_DIMMER,
+                }}
+              >
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3.4, duration: 1 }}
-        className="absolute bottom-8 right-8 flex flex-col items-center gap-3 z-10"
+        transition={{ delay: 3.7, duration: 1 }}
+        className="absolute bottom-8 right-8 flex-col items-center gap-3 z-10 hidden md:flex"
         aria-hidden="true"
       >
         <span
-          className="eyebrow"
-          style={{ fontSize: '0.6rem', writingMode: 'vertical-rl', letterSpacing: '0.2em' }}
+          style={{
+            fontSize: '0.6rem',
+            writingMode: 'vertical-rl',
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            color: CREAM_DIMMER,
+          }}
         >
           Scroll
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-          style={{ width: '1px', height: '40px', background: 'var(--color-accent)', opacity: 0.6 }}
+          style={{ width: '1px', height: '40px', background: '#c9a166', opacity: 0.6 }}
         />
       </motion.div>
     </section>

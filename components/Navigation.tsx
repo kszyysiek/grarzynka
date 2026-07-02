@@ -21,9 +21,14 @@ export default function Navigation() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Light text over the dark hero; dark text once the bar gains its light backdrop
+  const linkColor = scrolled ? 'var(--color-text-dim)' : 'rgba(239,230,215,0.78)';
+  const markColor = scrolled ? 'var(--color-text)' : '#efe6d7';
 
   return (
     <motion.nav
@@ -41,7 +46,8 @@ export default function Navigation() {
         {/* Wordmark */}
         <a
           href="/"
-          className="font-serif text-ivory tracking-[0.35em] text-sm hover:text-accent transition-colors duration-300"
+          className="font-serif tracking-[0.35em] text-sm transition-colors duration-500"
+          style={{ color: markColor, textDecoration: 'none' }}
         >
           {BRAND}
         </a>
@@ -52,8 +58,15 @@ export default function Navigation() {
             <a
               key={item.label}
               href={item.href}
-              className="eyebrow text-[length:inherit] hover:text-ivory transition-all duration-400"
-              style={{ fontSize: '0.67rem' }}
+              className="nav-underline transition-colors duration-500"
+              style={{
+                fontSize: '0.67rem',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                fontWeight: 400,
+                color: linkColor,
+                textDecoration: 'none',
+              }}
             >
               {item.label}
             </a>
@@ -69,14 +82,14 @@ export default function Navigation() {
           <span
             className="block w-5 h-px transition-all duration-300 origin-center"
             style={{
-              background: 'var(--color-text)',
+              background: menuOpen ? 'var(--color-text)' : markColor,
               transform: menuOpen ? 'rotate(45deg) translateY(3.5px)' : 'none',
             }}
           />
           <span
             className="block w-5 h-px transition-all duration-300 origin-center"
             style={{
-              background: 'var(--color-text)',
+              background: menuOpen ? 'var(--color-text)' : markColor,
               transform: menuOpen ? 'rotate(-45deg) translateY(-3.5px)' : 'none',
             }}
           />
@@ -91,7 +104,11 @@ export default function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.35, ease: 'easeInOut' }}
-            style={{ background: 'var(--color-surface)', borderTop: '1px solid var(--color-hairline)', overflow: 'hidden' }}
+            style={{
+              background: 'var(--color-base)',
+              borderTop: '1px solid var(--color-hairline)',
+              overflow: 'hidden',
+            }}
           >
             {NAV_ITEMS.map((item, i) => (
               <motion.a
@@ -102,7 +119,7 @@ export default function Navigation() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
                 className="block px-6 py-4 eyebrow hover:text-ivory"
-                style={{ borderBottom: '1px solid var(--color-hairline)', fontSize: '0.7rem' }}
+                style={{ borderBottom: '1px solid var(--color-hairline)', fontSize: '0.7rem', textDecoration: 'none' }}
               >
                 {item.label}
               </motion.a>

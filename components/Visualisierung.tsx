@@ -86,6 +86,7 @@ export default function Visualisierung() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.9, delay: 0.2 }}
+          className="frame-ticks"
           style={{
             position: 'relative',
             height: 'clamp(360px, 52vw, 680px)',

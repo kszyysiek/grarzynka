@@ -45,7 +45,7 @@ export default function Lichtintegration() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
+          className="relative frame-ticks"
           style={{
             height: 'clamp(320px, 44vw, 560px)',
             overflow: 'hidden',

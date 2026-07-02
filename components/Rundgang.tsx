@@ -53,6 +53,7 @@ export default function Rundgang() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.9, delay: 0.2 }}
+          className="frame-ticks"
           style={{
             position: 'relative',
             height: 'clamp(420px, 58vw, 720px)',

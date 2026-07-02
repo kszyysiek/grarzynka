@@ -107,8 +107,18 @@ export default function Projekte() {
                       overflow: 'hidden',
                     }}
                   >
-                    {/* Fin pattern overlay */}
-                    <FinThumbnail format={project.format} isNight={project.timeOfDay.includes('nacht') && !project.timeOfDay.includes('tag')} />
+                    {project.photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={project.photo}
+                        alt={project.title}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                    ) : (
+                      // Fin pattern overlay
+                      <FinThumbnail format={project.format} isNight={project.timeOfDay.includes('nacht') && !project.timeOfDay.includes('tag')} />
+                    )}
 
                     {/* Category badge */}
                     <div
@@ -232,19 +242,30 @@ export default function Projekte() {
                   overflow: 'hidden',
                 }}
               >
-                <FinThumbnail format={lightbox.format} isNight={lightbox.timeOfDay.includes('nacht')} large />
-                <p
-                  style={{
-                    position: 'absolute',
-                    bottom: '0.875rem',
-                    left: '1rem',
-                    fontSize: '0.6rem',
-                    color: 'rgba(239,233,221,0.35)',
-                    fontStyle: 'italic',
-                  }}
-                >
-                  Referenzbild Platzhalter — Projektfotografie folgt
-                </p>
+                {lightbox.photo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={lightbox.photo}
+                    alt={lightbox.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <FinThumbnail format={lightbox.format} isNight={lightbox.timeOfDay.includes('nacht')} large />
+                    <p
+                      style={{
+                        position: 'absolute',
+                        bottom: '0.875rem',
+                        left: '1rem',
+                        fontSize: '0.6rem',
+                        color: 'rgba(239,233,221,0.35)',
+                        fontStyle: 'italic',
+                      }}
+                    >
+                      Referenzbild Platzhalter — Projektfotografie folgt
+                    </p>
+                  </>
+                )}
               </div>
 
               {/* Content */}

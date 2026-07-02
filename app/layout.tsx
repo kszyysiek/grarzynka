@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { BRAND } from '@/data/brand';
+import SmoothScroll from '@/components/SmoothScroll';
+import Cursor from '@/components/Cursor';
 
 export const metadata: Metadata = {
   title: `${BRAND} — Modulares Aluminium Lamellensystem`,
@@ -14,6 +16,7 @@ export const metadata: Metadata = {
       'Ein Fassadensystem für Architektur, die nicht laut sein muss, um gesehen zu werden.',
     type: 'website',
     locale: 'de_DE',
+    images: ['/renders/penthouse-night.jpg'],
   },
 };
 
@@ -24,7 +27,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body>
+        <SmoothScroll />
+        <Cursor />
+        {children}
+      </body>
     </html>
   );
 }

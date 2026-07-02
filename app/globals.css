@@ -27,8 +27,29 @@
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
+}
+
+/* Lenis drives scrolling; instant jumps only for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Custom cursor active (desktop fine pointers) */
+html.custom-cursor,
+html.custom-cursor a,
+html.custom-cursor button,
+html.custom-cursor input,
+html.custom-cursor textarea,
+html.custom-cursor label {
+  cursor: none;
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 body {
@@ -99,9 +120,9 @@ body::after {
 .display-xl {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-weight: 300;
-  font-size: clamp(3rem, 8vw, 6.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  font-size: clamp(3.4rem, 9vw, 7.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
 }
 
 .display-lg {
@@ -157,6 +178,17 @@ body::after {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: #fff;
+  letter-spacing: 0.22em;
+}
+
+.btn-arrow {
+  display: inline-block;
+  transform: translateX(-2px);
+  transition: transform 0.4s ease;
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
 }
 
 .btn-ghost {
@@ -322,6 +354,108 @@ body::after {
 .filter-btn.active {
   border-color: var(--color-accent);
   color: var(--color-accent);
+}
+
+/* Marquee band */
+.marquee {
+  overflow: hidden;
+  padding: 1.6rem 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 46s linear infinite;
+  will-change: transform;
+}
+
+.marquee-row {
+  display: flex;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.marquee-item {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.marquee-item em {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text-dim);
+}
+
+.marquee-sep {
+  margin: 0 2.5rem;
+  color: var(--color-accent);
+  font-size: 1.2rem;
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Nav link underline reveal */
+.nav-underline {
+  position: relative;
+}
+
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Corner-tick frame for feature panels */
+.frame-ticks {
+  position: relative;
+}
+
+.frame-ticks::before,
+.frame-ticks::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.frame-ticks::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid var(--color-accent);
+  border-left: 1px solid var(--color-accent);
+}
+
+.frame-ticks::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid var(--color-accent);
+  border-right: 1px solid var(--color-accent);
 }
 
 /* Lightbox overlay */

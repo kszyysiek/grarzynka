@@ -7,9 +7,47 @@ export interface Project {
   format: '90' | '30' | '15' | 'rhythmus';
   description: string;
   images: string[];
+  /** Real photography/render in /public — shown instead of the schematic placeholder. */
+  photo?: string;
 }
 
 export const PROJECTS: Project[] = [
+  {
+    id: 'penthouse-terrasse',
+    title: 'Penthouse-Terrasse',
+    location: 'Studie · Skyline-Lage',
+    categories: ['aussen'],
+    timeOfDay: ['nacht'],
+    format: 'rhythmus',
+    description:
+      'Freistehende Lamellenwand als Raumkante einer Dachterrasse. Nach Einbruch der Dunkelheit verwandelt die integrierte LED-Technik die Schattenfugen in warme Lichtlinien — die Wand wird zur Leuchte, ohne eine einzige sichtbare Armatur.',
+    images: ['/renders/penthouse-night.jpg'],
+    photo: '/renders/penthouse-night.jpg',
+  },
+  {
+    id: 'villa-lamellenfassade',
+    title: 'Villa mit Lamellenfassade',
+    location: 'Studie · Wohnbau',
+    categories: ['aussen'],
+    timeOfDay: ['tag'],
+    format: 'rhythmus',
+    description:
+      'Durchgängige Gebäudehülle aus vertikalen Aluminiumlamellen — vom Obergeschoss über den Einschnitt der Fensterbänder bis zur Garagenzone. Die Fassade gliedert den Baukörper, filtert Einblicke und bleibt dabei vollständig hinterlüftet.',
+    images: ['/renders/villa-day.jpg'],
+    photo: '/renders/villa-day.jpg',
+  },
+  {
+    id: 'empfang-lobby',
+    title: 'Empfang & Lobby',
+    location: 'Studie · Objektbau',
+    categories: ['innen'],
+    timeOfDay: ['tag', 'nacht'],
+    format: '30',
+    description:
+      'Raumhohe Lamellenwand als ruhiger Hintergrund eines Empfangsbereichs. Indirekte Lichtvouten oben und unten lösen die Wand vom Boden und von der Decke — das System wirkt schwebend, präzise, selbstverständlich.',
+    images: ['/renders/lobby-empfang.jpg'],
+    photo: '/renders/lobby-empfang.jpg',
+  },
   {
     id: 'residenz-frankfurt',
     title: 'Residenz Frankfurt',

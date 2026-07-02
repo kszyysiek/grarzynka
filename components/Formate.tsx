@@ -160,7 +160,7 @@ export default function Formate() {
               <div className="flex items-baseline gap-3 mb-3">
                 <span
                   className="font-serif"
-                  style={{ fontSize: '2.2rem', fontWeight: 300, color: 'var(--color-accent)' }}
+                  style={{ fontSize: 'clamp(3.2rem, 5vw, 4.6rem)', fontWeight: 300, color: 'var(--color-accent)', lineHeight: 1 }}
                 >
                   {fmt.mm}
                 </span>
