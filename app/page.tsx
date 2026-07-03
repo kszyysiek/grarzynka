@@ -7,6 +7,7 @@ import Philosophie from '@/components/Philosophie';
 import Formate from '@/components/Formate';
 import Justierung from '@/components/Justierung';
 import Material from '@/components/Material';
+import Profilsystem from '@/components/Profilsystem';
 import Lichtintegration from '@/components/Lichtintegration';
 import Visualisierung from '@/components/Visualisierung';
 import Rundgang from '@/components/Rundgang';
@@ -38,6 +39,7 @@ export default function Home() {
         <Formate />
         <Justierung />
         <Material />
+        <Profilsystem />
         <Lichtintegration />
         <Visualisierung />
         <Rundgang />

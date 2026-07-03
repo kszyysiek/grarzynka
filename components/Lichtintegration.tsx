@@ -24,7 +24,7 @@ export default function Lichtintegration() {
           className="mb-14 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
         >
           <div>
-            <p className="chapter-num mb-3">V. — Lichtintegration</p>
+            <p className="chapter-num mb-3">VI. — Lichtintegration</p>
             <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
             <h2 className="display-lg text-ivory">
               Nach Dämmerung:{' '}

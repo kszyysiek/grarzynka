@@ -31,7 +31,7 @@ export default function Rundgang() {
           className="mb-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"
         >
           <div>
-            <p className="chapter-num mb-3">VII. — Virtueller Rundgang</p>
+            <p className="chapter-num mb-3">VIII. — Virtueller Rundgang</p>
             <div className="hairline-h mb-8" style={{ maxWidth: '3rem' }} />
             <h2 className="display-lg text-ivory">
               Treten Sie{' '}
