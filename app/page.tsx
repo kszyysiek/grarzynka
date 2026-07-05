@@ -2,6 +2,7 @@ import Preloader from '@/components/Preloader';
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import Marquee from '@/components/Marquee';
+import ScrollJourney from '@/components/ScrollJourney';
 import ImageBand from '@/components/ImageBand';
 import Philosophie from '@/components/Philosophie';
 import Formate from '@/components/Formate';
@@ -26,6 +27,7 @@ export default function Home() {
       <main>
         <Hero />
         <Marquee />
+        <ScrollJourney />
         <Philosophie />
         <ImageBand
           src="/renders/villa-day.jpg"

@@ -81,86 +81,46 @@ export default function Material() {
             </div>
           </motion.div>
 
-          {/* Right: visual — abstract cross-section diagram */}
+          {/* Right: rendered profile study — real cross-sections from above */}
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="relative"
+            className="relative frame-ticks"
             style={{ minHeight: '380px' }}
           >
-            {/* Decorative profile representation */}
             <div
               style={{
                 border: '1px solid var(--color-hairline)',
-                background: 'var(--color-surface)',
-                padding: '2.5rem',
+                background: '#171310',
                 height: '100%',
                 minHeight: '380px',
                 position: 'relative',
                 overflow: 'hidden',
               }}
             >
-              {/* Cross-section fins */}
-              <div className="flex gap-3 h-full items-stretch" style={{ height: '280px' }}>
-                {[90, 30, 15].map((w, i) => (
-                  <div
-                    key={w}
-                    style={{
-                      flex: w,
-                      background:
-                        'linear-gradient(to right, #252018, #403830, #2a2218)',
-                      borderTop: '2px solid rgba(212,180,131,0.35)',
-                      position: 'relative',
-                    }}
-                  >
-                    {/* Connector geometry on right side */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '50%',
-                        right: '-8px',
-                        transform: 'translateY(-50%)',
-                        width: '8px',
-                        height: '20px',
-                        background: '#504840',
-                        borderRadius: '0 2px 2px 0',
-                      }}
-                    />
-                    {/* Width label */}
-                    <span
-                      style={{
-                        position: 'absolute',
-                        bottom: '0.75rem',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        fontSize: '0.6rem',
-                        color: 'var(--color-text-dimmer)',
-                        whiteSpace: 'nowrap',
-                        fontStyle: 'italic',
-                        fontFamily: 'Cormorant Garamond, serif',
-                      }}
-                    >
-                      {w} mm
-                    </span>
-                  </div>
-                ))}
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/renders/gallery/detail.jpg"
+                alt="Profilstudie: gegossene KANELO Lamellenprofile von oben — offene Querschnitte mit Verbindungsgeometrie"
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
 
               {/* Caption */}
               <p
                 style={{
                   position: 'absolute',
-                  bottom: '1.25rem',
+                  bottom: '1.1rem',
                   left: '1.5rem',
                   right: '1.5rem',
                   fontSize: '0.62rem',
-                  color: 'var(--color-text-dimmer)',
+                  color: 'rgba(239,230,215,0.55)',
                   fontStyle: 'italic',
                 }}
               >
-                Profilquerschnitt — schematisch. Hinterschnitte und Verbindungsgeometrie
-                durch Gussverfahren realisierbar.
+                Profilstudie — Querschnitte im Guss. Hinterschnitte und Verbindungsgeometrie,
+                die eine Extrusion nicht leisten kann.
               </p>
 
               {/* Decorative hairline corner */}

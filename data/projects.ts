@@ -49,6 +49,42 @@ export const PROJECTS: Project[] = [
     photo: '/renders/lobby-empfang.jpg',
   },
   {
+    id: 'studio-rhythmus-nacht',
+    title: 'Wandkomposition bei Nacht',
+    location: 'Studie · Rhythmus 90 · 30 · 15',
+    categories: ['innen'],
+    timeOfDay: ['nacht'],
+    format: 'rhythmus',
+    description:
+      'Studioaufnahme einer Wandkomposition im freien Rhythmus, aus den realen Gussprofilen aufgebaut. Nach Einbruch der Dunkelheit übernehmen die LED-Fugen die Zeichnung der Wand.',
+    images: ['/renders/gallery/rhythmus-nacht.jpg'],
+    photo: '/renders/gallery/rhythmus-nacht.jpg',
+  },
+  {
+    id: 'studio-fine-15',
+    title: 'Textur Fine 15',
+    location: 'Studie · Format 15 mm',
+    categories: ['innen'],
+    timeOfDay: ['tag'],
+    format: '15',
+    description:
+      'Das dichteste Raster des Systems: 15-Millimeter-Lamellen in enger Teilung. Aus der Distanz eine ruhige, fast textile Fläche — aus der Nähe präzises Metall.',
+    images: ['/renders/gallery/fine-15.jpg'],
+    photo: '/renders/gallery/fine-15.jpg',
+  },
+  {
+    id: 'studio-wand-90',
+    title: 'Fassadenfeld im Streiflicht',
+    location: 'Studie · Format 90 mm',
+    categories: ['aussen'],
+    timeOfDay: ['tag'],
+    format: '90',
+    description:
+      'Largo-Format unter tief stehender Sonne: Das Streiflicht zeichnet jede Lamelle einzeln und macht die Tiefe des Reliefs sichtbar.',
+    images: ['/renders/gallery/wand-90.jpg'],
+    photo: '/renders/gallery/wand-90.jpg',
+  },
+  {
     id: 'residenz-frankfurt',
     title: 'Residenz Frankfurt',
     location: 'Frankfurt am Main, DE',
