@@ -84,10 +84,10 @@ export default function Justierung() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.15 }}
           >
-            {/* Fin cross-section diagram */}
+            {/* Fin cross-section diagram — drawing-board stage */}
             <div
-              className="relative mb-10"
-              style={{ height: '280px', border: '1px solid var(--color-hairline)', background: 'var(--color-base)', overflow: 'hidden' }}
+              className="relative mb-10 frame-ticks"
+              style={{ height: '280px', border: '1px solid var(--color-hairline)', background: '#221c15', overflow: 'hidden' }}
             >
               {/* Wall / carrier */}
               <div
@@ -97,8 +97,8 @@ export default function Justierung() {
                   bottom: 0,
                   right: 0,
                   width: '40%',
-                  background: 'linear-gradient(to left, #1a1612, #0e0c0a)',
-                  borderLeft: '1px solid rgba(212,180,131,0.15)',
+                  background: 'linear-gradient(to left, #171310, #100d0a)',
+                  borderLeft: '1px solid rgba(212,180,131,0.3)',
                 }}
               />
               <div
@@ -108,8 +108,8 @@ export default function Justierung() {
                   right: '40%',
                   transform: 'translate(0, -50%)',
                   fontSize: '0.6rem',
-                  color: 'var(--color-text-dimmer)',
-                  letterSpacing: '0.1em',
+                  color: 'rgba(239,230,215,0.5)',
+                  letterSpacing: '0.14em',
                   writingMode: 'vertical-rl',
                 }}
               >
@@ -126,9 +126,10 @@ export default function Justierung() {
                   transform: 'translateY(-50%)',
                   width: '100px',
                   height: '160px',
-                  background: 'linear-gradient(to right, #383028, #504840, #383028)',
-                  borderTop: '1px solid rgba(212,180,131,0.3)',
-                  borderBottom: '1px solid rgba(212,180,131,0.1)',
+                  background: 'linear-gradient(to right, #96784e, #d0ab74, #96784e)',
+                  borderTop: '1px solid rgba(240,213,164,0.6)',
+                  borderBottom: '1px solid rgba(240,213,164,0.25)',
+                  boxShadow: '6px 0 16px rgba(0,0,0,0.35)',
                 }}
               >
                 {/* Connector stub */}
@@ -140,8 +141,8 @@ export default function Justierung() {
                     transform: 'translateY(-50%)',
                     width: '32px',
                     height: '24px',
-                    background: '#504840',
-                    borderTop: '1px solid rgba(212,180,131,0.2)',
+                    background: '#a9895b',
+                    borderTop: '1px solid rgba(240,213,164,0.5)',
                   }}
                 />
               </motion.div>
@@ -156,7 +157,7 @@ export default function Justierung() {
                   height: '16px',
                 }}
               >
-                <div style={{ width: '100%', height: '1px', background: 'rgba(212,180,131,0.25)' }} />
+                <div style={{ width: '100%', height: '1px', background: 'rgba(240,213,164,0.45)' }} />
                 {[0, 0.25, 0.5, 0.75, 1].map((t) => (
                   <div
                     key={t}
@@ -166,7 +167,7 @@ export default function Justierung() {
                       top: 0,
                       width: '1px',
                       height: t === 0 || t === 1 ? '8px' : '5px',
-                      background: 'rgba(212,180,131,0.35)',
+                      background: 'rgba(240,213,164,0.55)',
                     }}
                   />
                 ))}
@@ -177,7 +178,7 @@ export default function Justierung() {
                     left: '50%',
                     transform: 'translateX(-50%)',
                     fontSize: '0.58rem',
-                    color: 'var(--color-text-dimmer)',
+                    color: 'rgba(239,230,215,0.6)',
                     whiteSpace: 'nowrap',
                   }}
                 >
@@ -196,11 +197,11 @@ export default function Justierung() {
               >
                 <span
                   className="font-serif"
-                  style={{ fontSize: '1.8rem', fontWeight: 300, color: 'var(--color-accent)' }}
+                  style={{ fontSize: '1.8rem', fontWeight: 300, color: '#e8c68e', fontVariantNumeric: 'tabular-nums' }}
                 >
                   {dispMm}
                 </span>
-                <span style={{ fontSize: '0.7rem', color: 'var(--color-text-dimmer)', marginLeft: '0.25rem' }}>
+                <span style={{ fontSize: '0.7rem', color: 'rgba(239,230,215,0.55)', marginLeft: '0.25rem' }}>
                   mm
                 </span>
               </div>
@@ -215,6 +216,29 @@ export default function Justierung() {
                 ref={trackRef}
                 className="relative cursor-pointer select-none"
                 style={{ height: '32px', display: 'flex', alignItems: 'center' }}
+                role="slider"
+                tabIndex={0}
+                aria-label="Justierweg der Lamelle"
+                aria-valuemin={0}
+                aria-valuemax={4}
+                aria-valuenow={Number((pos * TRAVEL_MM).toFixed(1))}
+                aria-valuetext={`${dispMm} Millimeter`}
+                onKeyDown={(e) => {
+                  const step = 0.5 / TRAVEL_MM; // 0,5 mm per keypress
+                  if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    setPos((p) => Math.min(1, p + step));
+                  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    setPos((p) => Math.max(0, p - step));
+                  } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    setPos(0);
+                  } else if (e.key === 'End') {
+                    e.preventDefault();
+                    setPos(1);
+                  }
+                }}
                 onMouseDown={(e) => { setDragging(true); handleMove(e.clientX); }}
                 onMouseMove={(e) => { if (dragging) handleMove(e.clientX); }}
                 onMouseUp={() => setDragging(false)}

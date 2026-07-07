@@ -52,15 +52,14 @@ export default function ScrollJourney() {
     setActive(a);
   });
 
+  // Keep the WebGL canvas mounted only while the journey is near the viewport —
+  // an offscreen RAF loop starves the compositor on weaker GPUs.
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
       (es) => {
-        if (es.some((e) => e.isIntersecting)) {
-          setMounted(true);
-          io.disconnect();
-        }
+        es.forEach((e) => setMounted(e.isIntersecting));
       },
       { rootMargin: '600px 0px' }
     );

@@ -77,65 +77,76 @@ export default function Formate() {
           className="mb-16"
         >
           <div
-            className="flex gap-2 overflow-hidden"
-            style={{ height: 'clamp(200px, 30vw, 340px)' }}
+            className="flex frame-ticks"
+            style={{
+              height: 'clamp(200px, 30vw, 340px)',
+              background: '#221c15',
+              border: '1px solid var(--color-hairline)',
+              padding: 'clamp(1.25rem, 3vw, 2.5rem)',
+              gap: 'clamp(0.6rem, 1.5vw, 1.2rem)',
+              overflow: 'hidden',
+            }}
             aria-label="Proportionsvergleich der drei Formate"
           >
             {FORMATS.map((fmt, i) => (
-              <motion.div
+              <motion.button
                 key={fmt.name}
+                type="button"
+                aria-pressed={active === i}
                 style={{
                   flex: fmt.relWidth,
+                  border: 'none',
+                  borderRadius: 0,
                   background:
                     active === i
-                      ? 'linear-gradient(180deg, #4a4238 0%, #2a2520 40%, #1a1612 100%)'
-                      : 'linear-gradient(180deg, #302820 0%, #1e1a16 40%, #100e0c 100%)',
-                  borderTop: `1px solid ${active === i ? 'var(--color-accent)' : 'rgba(212,180,131,0.2)'}`,
+                      ? 'linear-gradient(180deg, #dcb87f 0%, #b28c58 55%, #8a6a41 100%)'
+                      : 'linear-gradient(180deg, #bd9a68 0%, #8f7350 55%, #6d5638 100%)',
+                  borderTop: `1px solid ${active === i ? '#f0d5a4' : 'rgba(240,213,164,0.45)'}`,
+                  boxShadow:
+                    active === i
+                      ? 'inset -6px 0 14px rgba(0,0,0,0.35), 0 0 0 1px rgba(240,213,164,0.35)'
+                      : 'inset -6px 0 14px rgba(0,0,0,0.35)',
                   cursor: 'pointer',
                   transition: 'all 0.4s ease',
                   position: 'relative',
                   overflow: 'hidden',
+                  padding: 0,
                 }}
                 onClick={() => setActive(active === i ? null : i)}
                 whileHover={{ scaleY: 1.01 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Highlight stripe */}
-                <div
+                {/* brushed highlight */}
+                <span
+                  aria-hidden="true"
                   style={{
                     position: 'absolute',
                     top: 0,
                     bottom: 0,
-                    left: '30%',
-                    width: '20%',
+                    left: '22%',
+                    width: '18%',
                     background:
-                      'linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
+                      'linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 100%)',
                   }}
                 />
                 {/* Label at bottom */}
-                <div
+                <span
+                  className="font-serif"
                   style={{
                     position: 'absolute',
-                    bottom: '1rem',
+                    bottom: '0.9rem',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    textAlign: 'center',
                     whiteSpace: 'nowrap',
+                    fontSize: '0.72rem',
+                    color: '#2a2014',
+                    letterSpacing: '0.15em',
+                    fontStyle: 'italic',
                   }}
                 >
-                  <span
-                    className="font-serif"
-                    style={{
-                      fontSize: '0.7rem',
-                      color: active === i ? 'var(--color-accent)' : 'var(--color-text-dimmer)',
-                      letterSpacing: '0.15em',
-                      fontStyle: 'italic',
-                    }}
-                  >
-                    {fmt.label}
-                  </span>
-                </div>
-              </motion.div>
+                  {fmt.label}
+                </span>
+              </motion.button>
             ))}
           </div>
         </motion.div>
@@ -194,7 +205,13 @@ export default function Formate() {
           </p>
           <div
             className="flex overflow-hidden"
-            style={{ height: '60px', gap: `${GAP / totalUnits * 100}%` }}
+            style={{
+              height: '72px',
+              gap: `${(GAP / totalUnits) * 100}%`,
+              background: '#221c15',
+              border: '1px solid var(--color-hairline)',
+              padding: '0.9rem 1.1rem',
+            }}
             aria-label="Rhythmus-Beispiel"
           >
             {RHYTHM_PATTERN.map((u, i) => (
@@ -202,8 +219,9 @@ export default function Formate() {
                 key={i}
                 style={{
                   flex: u,
-                  background: `linear-gradient(to bottom, #383028, #1e1a16)`,
-                  borderTop: '1px solid rgba(212,180,131,0.25)',
+                  background: 'linear-gradient(to bottom, #d0ab74, #96784e)',
+                  borderTop: '1px solid rgba(240,213,164,0.5)',
+                  boxShadow: 'inset -3px 0 6px rgba(0,0,0,0.3)',
                   flexShrink: 0,
                 }}
               />

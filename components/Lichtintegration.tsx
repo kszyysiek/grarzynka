@@ -77,6 +77,7 @@ export default function Lichtintegration() {
           >
             <button
               onClick={() => setIsNight(false)}
+              aria-pressed={!isNight}
               className={`segment-btn ${!isNight ? 'active' : ''}`}
               style={{ border: 'none' }}
             >
@@ -84,6 +85,7 @@ export default function Lichtintegration() {
             </button>
             <button
               onClick={() => setIsNight(true)}
+              aria-pressed={isNight}
               className={`segment-btn ${isNight ? 'active' : ''}`}
               style={{ border: 'none' }}
             >

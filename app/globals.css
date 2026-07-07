@@ -12,8 +12,8 @@
   --color-accent: #a3743f;      /* warm bronze — readable on light */
   --color-accent-dim: #b98f57;  /* softer brass */
   --color-text: #2c2620;        /* warm near-black */
-  --color-text-dim: rgba(44, 38, 32, 0.66);
-  --color-text-dimmer: rgba(44, 38, 32, 0.42);
+  --color-text-dim: rgba(44, 38, 32, 0.72);
+  --color-text-dimmer: rgba(44, 38, 32, 0.52);
   --color-hairline: rgba(120, 88, 52, 0.20);
   --color-hairline-strong: rgba(120, 88, 52, 0.34);
 }
@@ -50,6 +50,37 @@ html.custom-cursor label {
 :focus-visible {
   outline: 1px solid var(--color-accent);
   outline-offset: 3px;
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 10001;
+  padding: 0.7rem 1.2rem;
+  background: var(--color-text);
+  color: var(--color-base);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+}
+
+/* Respect reduced motion for all CSS-driven movement */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
@@ -123,6 +154,7 @@ body::after {
   font-size: clamp(3.4rem, 9vw, 7.5rem);
   line-height: 0.98;
   letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 .display-lg {
@@ -131,6 +163,7 @@ body::after {
   font-size: clamp(2.2rem, 5vw, 4rem);
   line-height: 1.1;
   letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
 .display-md {

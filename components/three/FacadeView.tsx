@@ -30,29 +30,27 @@ interface FacadeViewProps extends Scene3DConfig {
 
 export default function FacadeView({ eager, ...props }: FacadeViewProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(!!eager);
+  const [visible, setVisible] = useState(!!eager);
   const light = props.kind === 'building';
 
+  // Mount the WebGL canvas only while near the viewport — offscreen contexts
+  // keep a RAF loop alive and starve the compositor on weaker GPUs.
   useEffect(() => {
-    if (eager || mounted) return;
     const el = wrapRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setMounted(true);
-          io.disconnect();
-        }
+        entries.forEach((e) => setVisible(e.isIntersecting));
       },
-      { rootMargin: '400px 0px' }
+      { rootMargin: '500px 0px' }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [eager, mounted]);
+  }, []);
 
   return (
     <div ref={wrapRef} style={{ position: 'absolute', inset: 0 }}>
-      {mounted ? <FacadeCanvas {...props} /> : <Placeholder light={light} />}
+      {visible ? <FacadeCanvas {...props} /> : <Placeholder light={light} />}
     </div>
   );
 }

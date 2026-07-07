@@ -79,6 +79,7 @@ export default function Rundgang() {
               <button
                 key={v.label}
                 onClick={() => setView(i)}
+                aria-pressed={view === i}
                 style={{
                   display: 'flex',
                   flexDirection: 'column',

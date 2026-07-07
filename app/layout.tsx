@@ -5,6 +5,7 @@ import SmoothScroll from '@/components/SmoothScroll';
 import Cursor from '@/components/Cursor';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://kanelo.de'),
   title: `${BRAND} — Modulares Aluminium Lamellensystem`,
   description:
     `${BRAND} ist ein modulares System vertikaler Aluminiumlamellen für hinterlüftete Außenfassaden, Innenwände und Decken. Aluminiumguss. Entwickelt und gefertigt in Deutschland.`,
@@ -28,6 +29,9 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body>
+        <a href="#system" className="skip-link">
+          Zum Inhalt springen
+        </a>
         <SmoothScroll />
         <Cursor />
         {children}

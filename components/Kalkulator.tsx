@@ -164,6 +164,7 @@ export default function Kalkulator() {
                     <button
                       key={f}
                       onClick={() => set('fw', f)}
+                      aria-pressed={inputs.fw === f}
                       className={`segment-btn ${inputs.fw === f ? 'active' : ''}`}
                     >
                       {f} mm
@@ -253,6 +254,7 @@ export default function Kalkulator() {
             transition={{ duration: 0.7, delay: 0.15 }}
           >
             <div
+              aria-live="polite"
               style={{
                 border: '1px solid var(--color-hairline)',
                 padding: '2rem',

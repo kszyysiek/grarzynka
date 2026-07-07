@@ -136,6 +136,7 @@ export default function Visualisierung() {
           >
             <button
               onClick={() => setTime('tag')}
+              aria-pressed={time === 'tag'}
               className={`segment-btn ${time === 'tag' ? 'active' : ''}`}
               style={{ border: 'none' }}
             >
@@ -143,6 +144,7 @@ export default function Visualisierung() {
             </button>
             <button
               onClick={() => setTime('nacht')}
+              aria-pressed={time === 'nacht'}
               className={`segment-btn ${time === 'nacht' ? 'active' : ''}`}
               style={{ border: 'none' }}
             >
@@ -168,6 +170,7 @@ export default function Visualisierung() {
                 <button
                   key={c}
                   onClick={() => setComp(c)}
+                  aria-pressed={comp === c}
                   className={`segment-btn ${comp === c ? 'active' : ''}`}
                 >
                   {COMP_LABELS[c]}
@@ -186,6 +189,7 @@ export default function Visualisierung() {
                 <button
                   key={g}
                   onClick={() => setGapKey(g)}
+                  aria-pressed={gapKey === g}
                   className={`segment-btn ${gapKey === g ? 'active' : ''}`}
                 >
                   {GAP_LABELS[g]}
@@ -204,6 +208,7 @@ export default function Visualisierung() {
                 <button
                   key={s}
                   onClick={() => setSurface(s)}
+                  aria-pressed={surface === s}
                   className={`segment-btn ${surface === s ? 'active' : ''}`}
                 >
                   {SURFACE_LABELS[s]}
