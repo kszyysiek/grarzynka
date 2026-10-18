@@ -35,6 +35,18 @@ anodised aluminium (same bronze as the door and window frames), never white. The
 feature wall in the living room is light champagne / pale sand.
 ```
 
+## Profil Kamm (rysunek „Kamm 03_07_2026 f”)
+
+Moduł 125 mm × 40,6 mm: płaska płyta tylna z 4 płetwami 1,4 mm × 32,2 mm, otwarte kanały
+27,2 / 30 / 27,2 / 35 mm, 2 stopki z kulką R1,5 do szyny. W promptach opisuj go tak:
+
+```
+KANELO "Kamm" comb profile: very thin, sharp, flat aluminium blades only 1.4 mm thick,
+standing 32 mm out from a flat back plate, with wide open channels between them
+(rhythm per 125 mm module: 27, 30, 27, 35 mm) — crisp razor-thin fin edges with deep dark
+open shadow channels, a precise metal comb, NOT rounded fluting.
+```
+
 ## Blok wspólny (dopisz na końcu każdego promptu)
 
 ```
