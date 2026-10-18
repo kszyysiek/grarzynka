@@ -30,7 +30,9 @@ clad in black vertical ribbed aluminium with full-height recessed warm LED lines
 cantilevered upper volume with a warm wood-clad fascia, large glazing and a balcony with a
 black ribbed parapet; wood-lined entrance recess washed by an LED line; light concrete
 driveway with thin joints, concrete planters with ornamental grasses and ground spotlights,
-multi-stem birch trees, black ribbed side fence.
+multi-stem birch trees, black ribbed side fence. The garden pergola is warm BRONZE
+anodised aluminium (same bronze as the door and window frames), never white. The ribbed
+feature wall in the living room is light champagne / pale sand.
 ```
 
 ## Blok wspólny (dopisz na końcu każdego promptu)
@@ -124,7 +126,7 @@ and a glowing pool beyond.
 
 ```
 View from the open glass doors of the living room out onto the terrace at night, passing
-under a white aluminium bioclimatic pergola with adjustable roof louvres (Tarasola style),
+under a bronze anodised aluminium bioclimatic pergola with adjustable roof louvres (Tarasola style),
 slim square posts and a perimeter LED line under the beams. Two loungers under the pergola.
 Beyond it: a turquoise illuminated swimming pool and a garden enclosed by a bronze lamella
 fence with a soft light line at its base.
@@ -151,7 +153,7 @@ lavender, yellow and coral with lush green foliage.
 High aerial view from behind the garden at night, looking back at the whole villa. In the
 foreground the long garden boundary fence made of vertical bronze aluminium lamellas on a
 stone plinth, with a continuous warm LED line along its base. Behind it: lit planters, the
-glowing turquoise pool, the outdoor bar, the white louvred pergola on the terrace and the
+glowing turquoise pool, the outdoor bar, the bronze louvred pergola on the terrace and the
 glass rear facade of the house with warm interior light, upper floor clad in lamellas with
 vertical LED lines. Side fences of the same lamellas frame the garden; the street side of the plot stays open
 with a green, planted driveway. Quiet, prestigious, cinematic.
