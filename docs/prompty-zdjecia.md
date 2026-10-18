@@ -169,3 +169,11 @@ with a green, planted driveway. Quiet, prestigious, cinematic.
 - **Kolor profili nie ten?** Podaj nazwę wykończenia z Waszej oferty (np. `champagne
   anodised`, `black anodised`, `RAL 7016`) zamiast `bronze`.
 - **Światło LED za mocne lub za słabe?** `subtle LED accent` / `strong glowing LED lines`.
+
+## Zatwierdzone ujęcia (Videoslash)
+
+| # | Ujęcie | Plik |
+|---|---|---|
+| 1 | Willa za dnia | `public/renders/podroz/01-dzien.jpg` (referencja: https://cdn.videoslash.com/assets/creative/cmvdn7yna016u01phhvjy1auu/cmve68zeh03xr01phgxvn19fv/references/input_images-1.jpg) |
+| 2 | Zmierzch | https://cdn.videoslash.com/assets/creative/cmvdn7yna016u01phhvjy1auu/cmve68zeh03xr01phgxvn19fv/generated-1792348904911.jpg |
+| 5 | Salon (brązowa pergola, TV) | https://cdn.videoslash.com/assets/creative/cmvdn7yna016u01phhvjy1auu/cmve6rn1t041h01phbq76wl16/generated-1792349773582.jpg |
