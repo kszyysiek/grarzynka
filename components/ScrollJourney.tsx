@@ -57,7 +57,7 @@ const STATIONS = [
     at: 0.96,
     eyebrow: 'Station 07 · Die Einfriedung',
     title: 'Und rundherum: der Zaun.',
-    text: 'Dieselben Profile schließen das Grundstück — ein durchgängiges System, vom Tor bis zum Garten.',
+    text: 'Zum Garten hin schließen dieselben Profile das Grundstück — ein durchgängiges System, innen wie außen.',
   },
 ];
 

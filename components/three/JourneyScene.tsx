@@ -163,11 +163,6 @@ function Grounds() {
         <planeGeometry args={[500, 18]} />
         <meshStandardMaterial color="#2b2c31" roughness={0.9} />
       </mesh>
-      {/* entry path */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[14, 0.04, 22]}>
-        <planeGeometry args={[9, 44]} />
-        <meshStandardMaterial color="#cdc5b3" roughness={0.8} />
-      </mesh>
       {/* stone plinth under house + terrace */}
       <Box p={[-5, 0.3, -30]} s={[96, 0.6, 66]} color="#cfc7b6" rough={0.75} />
       {/* pool deck */}
@@ -217,26 +212,79 @@ function FenceRun({
 function Fences({ mats }: { mats: Mats }) {
   return (
     <group>
-      {/* street side, gate opening x 7..21 */}
-      <group position={[-31, 0, 44]}>
-        <FenceRun length={74} material={mats.alu} led={mats.ledOut} />
-      </group>
-      <group position={[45.5, 0, 44]}>
-        <FenceRun length={49} material={mats.alu} led={mats.ledOut} />
-      </group>
-      {[7, 21].map((x) => (
-        <Box key={x} p={[x, 4.8, 44]} s={[1.6, 9.6, 1.6]} color="#2c261e" rough={0.4} metal={0.6} />
-      ))}
       {/* garden side — seen in the final pull-back, face toward the viewer (−z) */}
       <group position={[0, 0, -104]} rotation={[0, Math.PI, 0]}>
         <FenceRun length={140} material={mats.alu} led={mats.ledOut} simple />
       </group>
-      {/* side runs */}
+      {/* side runs — the street side stays open onto the driveway */}
       {[-70, 70].map((x) => (
-        <group key={x} position={[x, 0, -30]} rotation={[0, x < 0 ? Math.PI / 2 : -Math.PI / 2, 0]}>
-          <FenceRun length={148} material={mats.alu} led={mats.ledOut} simple />
+        <group key={x} position={[x, 0, -52]} rotation={[0, x < 0 ? Math.PI / 2 : -Math.PI / 2, 0]}>
+          <FenceRun length={104} material={mats.alu} led={mats.ledOut} simple />
         </group>
       ))}
+    </group>
+  );
+}
+
+/* ── Driveway with planting (street side, open — no fence) ────── */
+
+function Driveway({ mats }: { mats: Mats }) {
+  const shrubs = useMemo(() => {
+    const out: { p: [number, number, number]; r: number; c: string }[] = [];
+    let s = 41;
+    const rnd = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
+    const greens = ['#3f5f30', '#4d6b38', '#355029', '#5b7a43'];
+    const bed = (x0: number, x1: number, z0: number, z1: number, n: number) => {
+      for (let i = 0; i < n; i++) {
+        const r = 0.9 + rnd() * 1.3;
+        out.push({ p: [x0 + rnd() * (x1 - x0), r * 0.7, z0 + rnd() * (z1 - z0)], r, c: greens[Math.floor(rnd() * 4)] });
+      }
+    };
+    bed(-38, 4, 2.5, 7, 26); // bed along the front facade
+    bed(-40, -14, 20, 34, 18); // lawn island left
+    bed(42, 56, 8, 30, 14); // right border
+    return out;
+  }, []);
+
+  return (
+    <group>
+      {/* wide paved driveway + forecourt, street to entrance */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[17, 0.04, 26]}>
+        <planeGeometry args={[34, 46]} />
+        <meshStandardMaterial color="#cfc8b8" roughness={0.75} />
+      </mesh>
+      {/* paving joints */}
+      {Array.from({ length: 11 }, (_, i) => (
+        <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[17, 0.06, 6 + i * 4]}>
+          <planeGeometry args={[34, 0.08]} />
+          <meshStandardMaterial color="#b3ab9b" roughness={0.9} />
+        </mesh>
+      ))}
+      {/* low hedges framing the driveway */}
+      {[-1.8, 35.8].map((x) => (
+        <Box key={x} p={[x, 1.4, 28]} s={[2.4, 2.8, 40]} color="#3d5a2e" rough={1} />
+      ))}
+      {/* bollard lights in the profile system along the drive */}
+      {[10, 20, 30, 40].flatMap((z) =>
+        [1.2, 32.8].map((x) => (
+          <group key={`${x}${z}`} position={[x, 0, z]}>
+            <Box p={[0, 1.6, 0]} s={[0.6, 3.2, 0.6]} material={mats.alu} />
+            <Led w={0.12} h={2.6} y={1.7} z={0.32} material={mats.ledOut} />
+            <Led w={0.12} h={2.6} y={1.7} z={-0.32} material={mats.ledOut} />
+          </group>
+        ))
+      )}
+      {/* shrubs and ornamental trees */}
+      {shrubs.map((b, i) => (
+        <mesh key={i} position={b.p}>
+          <sphereGeometry args={[b.r, 10, 8]} />
+          <meshStandardMaterial color={b.c} roughness={1} />
+        </mesh>
+      ))}
+      <Tree x={-26} z={28} s={0.75} />
+      <Tree x={48} z={34} s={0.8} />
+      <Tree x={-6} z={46} s={0.6} />
+      <Tree x={40} z={50} s={0.6} />
     </group>
   );
 }
@@ -741,6 +789,7 @@ export default function JourneyScene({ progress }: { progress: MotionValue<numbe
 
       <Grounds />
       <Fences mats={mats} />
+      <Driveway mats={mats} />
       <House mats={mats} door={door} />
       <Entrance mats={mats} />
       <Hall mats={mats} hallLight={hallLight} />
