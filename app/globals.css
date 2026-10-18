@@ -547,3 +547,51 @@ body::after {
   align-items: center;
   justify-content: center;
 }
+
+/* 360° tour */
+.pano-hotspot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #efe6d7;
+  font-family: 'Jost', sans-serif;
+}
+
+.pano-hotspot-arrow {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: rgba(13, 15, 20, 0.55);
+  border: 1px solid rgba(239, 230, 215, 0.6);
+  backdrop-filter: blur(6px);
+  font-size: 1.3rem;
+  transform: perspective(200px) rotateX(55deg);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.pano-hotspot:hover .pano-hotspot-arrow,
+.pano-hotspot:focus-visible .pano-hotspot-arrow {
+  background: rgba(201, 161, 102, 0.85);
+  transform: perspective(200px) rotateX(45deg) scale(1.08);
+}
+
+.pano-hotspot-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+.pano-room {
+  background: rgba(13, 15, 20, 0.5);
+  color: rgba(239, 230, 215, 0.85);
+  border-color: rgba(239, 230, 215, 0.3);
+  backdrop-filter: blur(6px);
+}
