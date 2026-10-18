@@ -19,6 +19,20 @@ górną bryłą w ciepłym tonie). Przy generowaniu dołączaj je jako obrazy re
    pełny ekran).
 5. Gotowe pliki wrzuć do `public/renders/podroz/` jako `01-dzien.jpg`, `02-zmierzch.jpg` itd.
 
+## Zatwierdzony dom (ujęcie 1)
+
+Plik: `public/renders/podroz/01-dzien.jpg`. Do każdego kolejnego ujęcia dołączaj go jako
+referencję i dopisz:
+
+```
+Keep the villa from the reference exactly the same: two-storey modern villa; lower cubes
+clad in black vertical ribbed aluminium with full-height recessed warm LED lines; a
+cantilevered upper volume with a warm wood-clad fascia, large glazing and a balcony with a
+black ribbed parapet; wood-lined entrance recess washed by an LED line; light concrete
+driveway with thin joints, concrete planters with ornamental grasses and ground spotlights,
+multi-stem birch trees, black ribbed side fence.
+```
+
 ## Blok wspólny (dopisz na końcu każdego promptu)
 
 ```
