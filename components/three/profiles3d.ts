@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 /**
  * 3D fin builders extruded from the real profile cross-sections
@@ -158,3 +159,34 @@ export const FACE_WIDTH: Record<keyof typeof PROFILES, number> = {
 };
 
 export { S as MM_SCALE };
+
+/**
+ * Single merged geometry for one fin (same layout as buildFin), so long runs can be
+ * batched into one draw call. `simple` keeps only the face box — for distant runs.
+ */
+export function buildFinGeometry(
+  key: keyof typeof PROFILES,
+  length: number,
+  simple = false
+): THREE.BufferGeometry {
+  const def = PROFILES[key];
+  const cx = (def.width * S) / 2;
+  if (simple) {
+    const depth = 32.2 * S;
+    const g = new THREE.BoxGeometry(def.width * S, length, depth);
+    g.translate(0, 0, -depth / 2);
+    return g;
+  }
+  const parts: THREE.BufferGeometry[] = [];
+  for (const [x, y, w, h] of [...def.rects, ...def.feet]) {
+    const g = new THREE.BoxGeometry(w * S, length, h * S);
+    g.translate((x + w / 2) * S - cx, 0, -(y + h / 2) * S);
+    parts.push(g);
+  }
+  for (const { cx: bx, cy } of def.balls) {
+    const g = new THREE.CylinderGeometry(1.5 * S, 1.5 * S, length, 10);
+    g.translate(bx * S - cx, 0, -cy * S);
+    parts.push(g);
+  }
+  return mergeGeometries(parts)!;
+}

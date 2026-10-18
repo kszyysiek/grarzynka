@@ -10,7 +10,7 @@ Jednostronicowa strona premium dla modularnego systemu aluminiowych lameli fasad
 (KANELO, Hanau). Cel: przekonać architektów / inwestorów wizualnie (rendery, sceny WebGL
 sterowane scrollem), a potem zebrać zapytanie (muster, ilości, projekt, dokumentacja).
 
-Ścieżka użytkownika: Preloader → Hero → podróż 3D przewijana scrollem → sekcje produktowe
+Ścieżka użytkownika: Preloader → podróż 3D przez willę (jako hero, 8 stacji: dzień → zmierzch z LED w profilach → wejście → hala z kolorową ścianą i SPI → salon → pergola → basen, bar, donice → płot) → sekcje produktowe
 (formaty, materiał, profile, światło) → konfiguratory (wizualizacja, rundgang, kalkulator)
 → projekty → kontakt.
 
@@ -25,15 +25,15 @@ Lenis (smooth scroll) · three.js + React Three Fiber + drei + postprocessing.
 | Odstęp sekcji | `.section-pad`: `clamp(5rem, 10vw, 9rem)` góra/dół | Dużo powietrza = odbiór premium |
 | Nawigacja | `fixed`, wysokość `h-14` (56px), `z-50` | Offset kotwic Lenis = `-56px`, musi się zgadzać z wysokością nav |
 | Siatki treści | `grid-cols-1` → `lg:grid-cols-2` (formularze, kalkulator), `sm:2 / lg:3` (projekty, `gap-px` = linie siatki) | |
-| Sekcje sticky 3D | wrapper `height: 520vh`, wewnątrz `position: sticky; top: 0; height: 100svh` | Długość wrappera = „długość” podróży kamery; `svh` chroni przed skakaniem paska adresu na mobile |
+| Sekcje sticky 3D | wrapper `height: 1000vh`, wewnątrz `position: sticky; top: 0; height: 100svh` | Długość wrappera = „długość” podróży kamery; `svh` chroni przed skakaniem paska adresu na mobile |
 
 Kolejność sekcji (`app/page.tsx`) i kotwice nawigacji:
 
 | # | Komponent | `id` | W nav |
 |---|---|---|---|
-| 1 | `Hero` | `hero` | — |
+| 1 | `ScrollJourney` (WebGL, pełni rolę hero, zawiera `h1`) | `hero` | — |
 | 2 | `Marquee` | — | — |
-| 3 | `ScrollJourney` (WebGL) | — | — |
+| 3 | — (`Hero.tsx` zostaje w repo, nieużywany) | — | — |
 | 4 | `Philosophie` | `system` (cel skip-linka) | System |
 | 5 | `ImageBand` (parallax) | — | — |
 | 6 | `Formate` | `formate` | Formate |
@@ -172,8 +172,11 @@ głodzi kompozytor na słabszych GPU.
 | Hero — tekst | load | fade + slide, kaskada | 1050 ms, delay 2.35 → 3.7 s | `(0.22, 1, 0.36, 1)` |
 | Hero — wskaźnik scrolla | ciągle | pulsowanie y | 2 s, nieskończenie | easeInOut |
 | Marquee | ciągle | `translateX(0 → -50%)` | 46 s, nieskończenie | linear |
-| ScrollJourney — kamera | scroll (520vh) | kamera po ścieżce wokół domu, 4 stacje | sterowane scrollem | — |
-| ScrollJourney — podpis stacji | `scrollYProgress` ∈ `[at-.10, at-.03, at+.09, at+.16]` | opacity `0→1→1→0`, `y: 24→0` | sterowane scrollem | liniowo |
+| ScrollJourney — kamera | scroll (1000vh) | kamera po ścieżce klatek kluczowych (`KEYS` z progiem `p`), 8 stacji | sterowane scrollem | damp λ=3.2 |
+| ScrollJourney — światło | `p` 0.06→0.24 | dzień → noc, LED-y w profilach włączają się (0.12→0.24), bloom 0.15→1.1 | sterowane scrollem | smoothstep |
+| Drzwi wejściowe | `p` 0.33→0.39 | przesuwają się w kieszeń ściany | sterowane scrollem | smoothstep |
+| Hala — SPI | ciągle | 6 linii × 44 piksele, przesuw barwy + fala jasności w górę | pętla | — |
+| ScrollJourney — podpis stacji | `scrollYProgress` ∈ `[at-.07, at-.02, at+.05, at+.09]` (pierwszy widoczny od startu, ostatni do końca) | opacity `0→1→1→0`, `y: 24→0` | sterowane scrollem | liniowo |
 | ScrollJourney — szyna postępu | zmiana stacji | kropka 6→10px, kolor `#e8c68e` | 400 ms | ease |
 | ImageBand | scroll | parallax `y: -10% → 10%` | sterowane scrollem | liniowo |
 | Reveal sekcji | wejście w viewport (raz) | fade + `y`/`x: 20px` | 600–900 ms | default |
