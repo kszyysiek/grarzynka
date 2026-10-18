@@ -16,13 +16,17 @@ rozumieją angielski najlepiej. Każdy prompt odpowiada jednej stacji podróży 
 ## Blok wspólny (dopisz na końcu każdego promptu)
 
 ```
-Product: KANELO vertical aluminium lamella system: slim rectangular extruded aluminium
-profiles (30 mm and 15 mm wide, 40 mm deep) mounted vertically with narrow 30–38 mm gaps,
-warm bronze anodised finish with a soft satin sheen; some profiles carry a recessed linear
-LED channel emitting a thin, continuous line of warm 2700 K light.
+Product: vertical cast-aluminium lamella facade in KANELO style: lamellas of three widths,
+wide 90 mm, medium 30 mm and fine 15 mm, combined in a deliberate architectural rhythm
+(wide, fine, fine, medium, fine, fine, wide), each lamella standing proud of the wall on
+concealed rails so there are deep, crisp shadow joints between them. Matte warm bronze
+anodised cast-aluminium finish with a very fine sand-cast texture and sharp precise edges,
+perfectly straight, perfectly evenly spaced, continuous from ground to roof line. Some of
+the shadow joints carry a hairline of integrated warm 2700 K LED light ("the shadow joint
+becomes a light joint"). The lamella cladding is the hero of the image.
 Style: high-end architectural photography, photorealistic, shot on a full-frame camera with
-a tilt-shift lens, verticals perfectly straight, natural materials, crisp detail on the
-aluminium edges, subtle reflections, editorial luxury real-estate magazine look, 16:9.
+a tilt-shift lens, verticals perfectly straight, crisp detail on the aluminium edges, deep
+realistic shadows, editorial luxury architecture magazine look, 16:9.
 ```
 
 ## Prompt negatywny (wspólny)
@@ -38,20 +42,23 @@ HDR halos, fisheye, blurry, noise
 ## 1. Willa za dnia (hero)
 
 ```
-Aerial three-quarter view of a contemporary two-storey luxury villa on a landscaped plot,
-late afternoon soft sunlight. Flat-roofed cubic volumes: a cream rendered ground floor with
-large glazing and a dark upper volume fully clad in vertical bronze aluminium lamellas.
-The entrance is framed by lamella piers under a slim dark canopy. In front of the house,
-open to the street (no front fence), a generous wide driveway and forecourt in large-format
-light stone paving, framed by low clipped hedges, lined with slim bronze lamella bollard
-lights. Lush planting: planting beds of rounded shrubs along the facade, ornamental trees,
-manicured lawn islands. Clear sky with a hint of haze.
+Aerial three-quarter view of a large, ultra-modern architect-designed villa, late
+afternoon soft sunlight. Bold minimalist composition of long horizontal volumes: a wide
+glazed ground floor and a dramatic, much longer upper volume that cantilevers boldly over
+the entrance and the terrace, with razor-thin flat roof edges and frameless floor-to-ceiling
+glass. The building is large and generous, around 40 metres long, with a monumental
+presence. The upper volume and the entrance wall are wrapped floor-to-roof in the lamella
+facade. In front of the house, open to the street with no front fence, a generous wide
+driveway and forecourt in large-format light stone paving, framed by low clipped hedges and
+lined with slim bronze lamella bollard lights. Lush planting: beds of rounded shrubs along
+the facade, ornamental multi-stem trees, manicured lawn islands. Clear sky with a hint of
+haze.
 ```
 
 ## 2. Zmierzch: zapalają się LED-y w profilach
 
 ```
-Same villa at blue hour, camera at eye level at the end of the wide stone driveway looking
+Same large cantilevered villa at blue hour, camera at eye level at the end of the wide stone driveway looking
 up toward the facade. The sky is deep blue, the house is lit only by architecture lighting:
 thin vertical lines of warm LED light glow inside the bronze lamella facade of the upper
 floor and at the entrance piers; slim lamella bollards with LED lines guide along both
