@@ -3,6 +3,12 @@
 Prompty są po angielsku, bo generatory (Midjourney, Flux, GPT Image, Nano Banana, Imagen)
 rozumieją angielski najlepiej. Każdy prompt odpowiada jednej stacji podróży 3D na stronie.
 
+## Wzorce stylu
+
+Zdjęcia referencyjne od klienta (czarna, gęsto żebrowana elewacja z pionowymi liniami LED;
+żebrowana ściana-brama z numerem domu; ściana ogrodowa z pionowymi listwami LED; willa z
+górną bryłą w ciepłym tonie). Przy generowaniu dołączaj je jako obrazy referencyjne.
+
 ## Jak uzyskać spójną serię
 
 1. **Najpierw wygeneruj ujęcie 1 (willa za dnia)** i wybierz najlepszą wersję.
@@ -16,17 +22,17 @@ rozumieją angielski najlepiej. Każdy prompt odpowiada jednej stacji podróży 
 ## Blok wspólny (dopisz na końcu każdego promptu)
 
 ```
-Product: vertical cast-aluminium lamella facade in KANELO style: lamellas of three widths,
-wide 90 mm, medium 30 mm and fine 15 mm, combined in a deliberate architectural rhythm
-(wide, fine, fine, medium, fine, fine, wide), each lamella standing proud of the wall on
-concealed rails so there are deep, crisp shadow joints between them. Matte warm bronze
-anodised cast-aluminium finish with a very fine sand-cast texture and sharp precise edges,
-perfectly straight, perfectly evenly spaced, continuous from ground to roof line. Some of
-the shadow joints carry a hairline of integrated warm 2700 K LED light ("the shadow joint
-becomes a light joint"). The lamella cladding is the hero of the image.
+Product: KANELO "Kamm" ribbed aluminium cladding: dense, perfectly uniform vertical ribs,
+thin fins about 30 mm apart and 32 mm deep with narrow deep grooves between them, like a
+fine metal comb or corrugated slat wall, continuous from ground to roof and wrapping
+seamlessly around the corners with crisp mitred edges. Matte black / dark anthracite
+anodised cast aluminium with a very fine texture (accent volumes may use a warm bronze
+wood-like tone). Light is built into the wall: full-height vertical warm 2700 K LED lines
+recessed in the grooves at regular intervals, plus short vertical LED bars in garden walls.
+The ribbed cladding is the hero of the image.
 Style: high-end architectural photography, photorealistic, shot on a full-frame camera with
-a tilt-shift lens, verticals perfectly straight, crisp detail on the aluminium edges, deep
-realistic shadows, editorial luxury architecture magazine look, 16:9.
+a tilt-shift lens, verticals perfectly straight, perfectly evenly spaced ribs, crisp detail,
+deep realistic shadows, editorial luxury architecture magazine look, 16:9.
 ```
 
 ## Prompt negatywny (wspólny)
@@ -47,8 +53,7 @@ afternoon soft sunlight. Bold minimalist composition of long horizontal volumes:
 glazed ground floor and a dramatic, much longer upper volume that cantilevers boldly over
 the entrance and the terrace, with razor-thin flat roof edges and frameless floor-to-ceiling
 glass. The building is large and generous, around 40 metres long, with a monumental
-presence. The upper volume and the entrance wall are wrapped floor-to-roof in the lamella
-facade. In front of the house, open to the street with no front fence, a generous wide
+presence. All volumes are wrapped floor-to-roof in the ribbed cladding. In front of the house, open to the street with no front fence, a generous wide
 driveway and forecourt in large-format light stone paving, framed by low clipped hedges and
 lined with slim bronze lamella bollard lights. Lush planting: beds of rounded shrubs along
 the facade, ornamental multi-stem trees, manicured lawn islands. Clear sky with a hint of
