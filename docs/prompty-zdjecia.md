@@ -190,3 +190,4 @@ with a green, planted driveway. Quiet, prestigious, cinematic.
 | 2 | Zmierzch | https://cdn.videoslash.com/assets/creative/cmvdn7yna016u01phhvjy1auu/cmve68zeh03xr01phgxvn19fv/generated-1792348904911.jpg |
 | 4 | Hol (Kamm, jasny szampan, jedno lustro) | https://cdn.videoslash.com/assets/creative/cmvdn7yna016u01phhvjy1auu/cmve7m77z045d01phx39injcw/generated-1792351199185.jpg |
 | 5 | Salon (brązowa pergola, TV) | https://cdn.videoslash.com/assets/creative/cmvdn7yna016u01phhvjy1auu/cmve6rn1t041h01phbq76wl16/generated-1792349773582.jpg |
+| 7 | Basen, bar, donice (pergola po prawej) | https://cdn.videoslash.com/assets/creative/cmvdn7yna016u01phhvjy1auu/cmve7wa2k046601phfdg8bwlf/generated-1792351679932.jpg |
