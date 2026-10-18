@@ -1,7 +1,7 @@
 import Preloader from '@/components/Preloader';
 import Navigation from '@/components/Navigation';
 import Marquee from '@/components/Marquee';
-import ScrollJourney from '@/components/ScrollJourney';
+import PhotoJourney from '@/components/PhotoJourney';
 import ImageBand from '@/components/ImageBand';
 import Philosophie from '@/components/Philosophie';
 import Formate from '@/components/Formate';
@@ -24,7 +24,7 @@ export default function Home() {
       <Preloader />
       <Navigation />
       <main>
-        <ScrollJourney />
+        <PhotoJourney />
         <Marquee />
         <Philosophie />
         <ImageBand
