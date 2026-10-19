@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BRAND } from '@/data/brand';
 
 const NAV_ITEMS = [
+  { label: 'Galerie', href: '#galerie' },
   { label: 'System', href: '#system' },
   { label: 'Formate', href: '#formate' },
   { label: 'Visualisierung', href: '#visualisierung' },
