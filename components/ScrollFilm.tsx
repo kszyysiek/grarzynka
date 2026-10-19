@@ -16,9 +16,10 @@ const POSTER = '/renders/podroz/02-zmierzch-1920.webp';
 
 const STOPS = [
   { at: 0, eyebrow: 'Die Ankunft', title: 'Licht führt zur Tür.' },
-  { at: 0.3, eyebrow: 'Der Eingang', title: 'Holz, Linie, Licht.' },
-  { at: 0.58, eyebrow: 'Die Halle', title: 'Ankommen zwischen Lamellen.' },
-  { at: 1, eyebrow: 'Der Salon', title: 'Raum, der nach draußen führt.' },
+  { at: 0.25, eyebrow: 'Der Eingang', title: 'Holz, Linie, Licht.' },
+  { at: 0.48, eyebrow: 'Die Halle', title: 'Ankommen zwischen Lamellen.' },
+  { at: 0.76, eyebrow: 'Der Salon', title: 'Raum, der nach draußen führt.' },
+  { at: 1, eyebrow: 'Die Terrasse', title: 'Ein System bis ans Wasser.' },
 ];
 
 export default function ScrollFilm() {
@@ -59,7 +60,7 @@ export default function ScrollFilm() {
       id="przelot"
       ref={ref}
       aria-label="Kameraflug durch die Villa"
-      style={{ height: '600vh', position: 'relative', background: '#0d0f14' }}
+      style={{ height: '700vh', position: 'relative', background: '#0d0f14' }}
     >
       <div style={{ position: 'sticky', top: 0, height: '100svh', overflow: 'hidden' }}>
         <video
