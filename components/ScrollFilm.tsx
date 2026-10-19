@@ -10,15 +10,15 @@ import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue 
  * The film is encoded with a short keyframe interval so seeking stays fluid.
  */
 
-const SRC = '/renders/film/przelot.mp4';
+const SRC_MP4 = '/renders/film/przelot.mp4';
+const SRC_WEBM = '/renders/film/przelot.webm';
 const POSTER = '/renders/podroz/02-zmierzch-1920.webp';
 
 const STOPS = [
   { at: 0, eyebrow: 'Die Ankunft', title: 'Licht führt zur Tür.' },
-  { at: 0.25, eyebrow: 'Der Eingang', title: 'Holz, Linie, Licht.' },
-  { at: 0.5, eyebrow: 'Die Halle', title: 'Ankommen zwischen Lamellen.' },
-  { at: 0.75, eyebrow: 'Der Salon', title: 'Raum, der nach draußen führt.' },
-  { at: 1, eyebrow: 'Die Terrasse', title: 'Ein System bis ans Wasser.' },
+  { at: 0.3, eyebrow: 'Der Eingang', title: 'Holz, Linie, Licht.' },
+  { at: 0.58, eyebrow: 'Die Halle', title: 'Ankommen zwischen Lamellen.' },
+  { at: 1, eyebrow: 'Der Salon', title: 'Raum, der nach draußen führt.' },
 ];
 
 export default function ScrollFilm() {
@@ -64,13 +64,15 @@ export default function ScrollFilm() {
       <div style={{ position: 'sticky', top: 0, height: '100svh', overflow: 'hidden' }}>
         <video
           ref={video}
-          src={SRC}
           poster={POSTER}
           muted
           playsInline
           preload="auto"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        />
+        >
+          <source src={SRC_WEBM} type="video/webm" />
+          <source src={SRC_MP4} type="video/mp4" />
+        </video>
         <div
           aria-hidden="true"
           style={{
