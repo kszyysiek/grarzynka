@@ -11,7 +11,7 @@ uruchamiany w dodatku **Terminal & SSH**.
    curl -fsSL https://raw.githubusercontent.com/kszyysiek/grarzynka/claude/intelligent-faraday-qyy48m/deploy/homeassistant/ha-setup.sh | bash
    ```
    Budowanie trwa kilka minut.
-2. **Ustawienia → Dodatki → Sklep z dodatkami → ⋮ (prawy górny róg) → Sprawdź aktualizacje**.
+2. Skrypt sam instaluje i uruchamia dodatek. Gdyby się nie udało: **Ustawienia → Dodatki → Sklep z dodatkami → ⋮ → Sprawdź aktualizacje**.
    Na dole pojawi się sekcja **Local add-ons** → **KANELO Web** → **Zainstaluj** → **Uruchom**.
 3. Strona: `http://<IP Home Assistanta>:8080/`, np. `http://homeassistant.local:8080/`.
 

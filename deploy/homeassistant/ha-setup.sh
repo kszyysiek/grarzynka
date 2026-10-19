@@ -34,9 +34,30 @@ rsync -a --delete out/ "$WWW/"
 mkdir -p "$ADDON"
 cp deploy/homeassistant/kanelo_web/* "$ADDON/"
 
+echo "==> Dodatek KANELO Web (instalacja i start, za pierwszym razem kilka minut)"
+SLUG=local_kanelo_web
+ha store reload >/dev/null 2>&1 || ha addons reload >/dev/null 2>&1 || true
+sleep 5
+if ha addons info "$SLUG" --raw-json 2>/dev/null | grep -q '"version":"[0-9]'; then
+  ha addons update "$SLUG" >/dev/null 2>&1 || ha addons rebuild "$SLUG" >/dev/null 2>&1 || true
+else
+  ha addons install "$SLUG"
+fi
+ha addons start "$SLUG" >/dev/null 2>&1 || ha addons restart "$SLUG" >/dev/null 2>&1 || true
+sleep 3
+
+echo
+echo "==> Sprawdzenie"
+[ -f "$WWW/index.html" ] && echo "OK   strona zbudowana ($(git rev-parse --short HEAD))" || echo "BŁĄD brak $WWW/index.html"
+STATE=$(ha addons info "$SLUG" --raw-json 2>/dev/null | sed -n 's/.*"state":"\([a-z]*\)".*/\1/p')
+echo "     dodatek KANELO Web: ${STATE:-nieznany}"
+CODE=$(curl -s -o /dev/null -w '%{http_code}' http://local-kanelo-web/ || true)
+[ "$CODE" = "200" ] && echo "OK   serwer strony odpowiada" || echo "BŁĄD serwer strony nie odpowiada (kod $CODE)"
+if [ "$STATE" != "started" ]; then
+  echo "--- ostatnie linie dziennika dodatku ---"
+  ha addons logs "$SLUG" 2>/dev/null | tail -20 || true
+fi
+
 IP=$(ha network info --raw-json 2>/dev/null | sed -n 's/.*"address":\["\([0-9.]*\)\/.*/\1/p' | head -1 || true)
 echo
-echo "Gotowe: strona zbudowana ($(git rev-parse --short HEAD))."
-echo "Jeśli to pierwsza instalacja: Ustawienia → Dodatki → Sklep z dodatkami → ⋮ → Sprawdź aktualizacje"
-echo "→ sekcja 'Local add-ons' → KANELO Web → Zainstaluj → Uruchom."
 echo "Strona: http://${IP:-homeassistant.local}:8080/"
