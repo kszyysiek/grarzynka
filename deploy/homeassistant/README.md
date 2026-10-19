@@ -26,6 +26,14 @@ Link jest w dzienniku dodatku i w `/share/kanelo-link.txt`; zmienia się po każ
 
 ## Stały adres na własnej domenie
 
-Dodatek **Cloudflared** (repozytorium `https://github.com/brenner-tobias/ha-addons`)
-z własną domeną w Cloudflare. W jego konfiguracji dodaj w `additional_hosts`:
-hostname `www.twojadomena.pl`, service `http://local-kanelo-web:80`.
+1. Dodaj domenę do darmowego konta Cloudflare (**Add a site**) i u rejestratora domeny
+   zmień serwery DNS na te dwa, które poda Cloudflare.
+2. Cloudflare → **Zero Trust → Networks → Tunnels → Create a tunnel** → **Cloudflared**,
+   nazwa `kanelo`. Skopiuj **token** (długi ciąg po `--token` w pokazanej komendzie).
+3. W tunelu, w zakładce **Public Hostname**, dodaj:
+   - `www` + Twoja domena → Service **HTTP** → `localhost:80`
+   - (puste) + Twoja domena → Service **HTTP** → `localhost:80`
+4. Home Assistant → **Ustawienia → Dodatki → KANELO Web → Konfiguracja** → wklej token w
+   `tunnel_token` → **Zapisz** → **Uruchom ponownie**.
+
+Strona działa pod `https://www.twojadomena.pl`, także po restarcie Home Assistanta.
