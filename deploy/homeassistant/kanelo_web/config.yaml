@@ -1,5 +1,5 @@
 name: KANELO Web
-version: "1.0.1"
+version: "1.1.0"
 slug: kanelo_web
 description: Serwuje stronę KANELO (eksport statyczny z /share/kanelo) przez nginx.
 url: https://github.com/kszyysiek/grarzynka
@@ -12,8 +12,12 @@ init: false
 startup: application
 boot: auto
 map:
-  - share:ro
+  - share:rw
 ports:
   80/tcp: 8080
 ports_description:
   80/tcp: Strona KANELO
+options:
+  public_link: true
+schema:
+  public_link: bool

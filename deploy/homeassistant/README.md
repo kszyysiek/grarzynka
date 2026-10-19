@@ -19,7 +19,12 @@ uruchamiany w dodatku **Terminal & SSH**.
 
 Wklej tę samą komendę co w kroku 1. Dodatku nie trzeba restartować.
 
-## Publiczny adres
+## Publiczny link
+
+Dodatek sam otwiera darmowy link `https://….trycloudflare.com` (opcja `public_link`).
+Link jest w dzienniku dodatku i w `/share/kanelo-link.txt`; zmienia się po każdym restarcie.
+
+## Stały adres na własnej domenie
 
 Dodatek **Cloudflared** (repozytorium `https://github.com/brenner-tobias/ha-addons`)
 z własną domeną w Cloudflare. W jego konfiguracji dodaj w `additional_hosts`:

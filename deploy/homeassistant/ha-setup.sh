@@ -58,6 +58,14 @@ if [ "$STATE" != "started" ]; then
   ha addons logs "$SLUG" 2>/dev/null | tail -20 || true
 fi
 
+echo "     czekam na publiczny link (do 60 s)…"
+for _ in $(seq 1 30); do [ -s /share/kanelo-link.txt ] && break; sleep 2; done
+
 IP=$(ha network info --raw-json 2>/dev/null | sed -n 's/.*"address":\["\([0-9.]*\)\/.*/\1/p' | head -1 || true)
 echo
 echo "Strona: http://${IP:-homeassistant.local}:8080/"
+if [ -s /share/kanelo-link.txt ]; then
+  echo "Link publiczny (telefon, inni ludzie): $(cat /share/kanelo-link.txt)"
+else
+  echo "Link publiczny jeszcze się nie pojawił: Ustawienia → Dodatki → KANELO Web → Dziennik."
+fi
