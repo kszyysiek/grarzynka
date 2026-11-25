@@ -49,8 +49,8 @@ module hexgrid(w,h,d=10,s=6,g=1.6){
 
 // ================= RAMKA =================
 frame_screws = [[fw/2+0.3,fH*0.25],[fw/2+0.3,fH*0.75],[fW-fw/2-0.3,fH*0.25],[fW-fw/2-0.3,fH*0.75],
-                [fW*0.2,fw/2+0.3],[fW*0.5,fw/2+0.3],[fW*0.8,fw/2+0.3],
-                [fW*0.2,fH-fw/2-0.3],[fW*0.5,fH-fw/2-0.3],[fW*0.8,fH-fw/2-0.3]];
+                [fW*0.2,fw/2+0.3],[fW*0.4,fw/2+0.3],[fW*0.6,fw/2+0.3],[fW*0.8,fw/2+0.3],
+                [fW*0.2,fH-fw/2-0.3],[fW*0.4,fH-fw/2-0.3],[fW*0.6,fH-fw/2-0.3],[fW*0.8,fH-fw/2-0.3]];
 module frame(){
   difference(){
     rrect(fW,fH,fD,fr);
@@ -155,7 +155,30 @@ module electronics(){
   }
 }
 
+// ================= PODZIAŁ NA 2 CZĘŚCI (mniejszy stół) =================
+frame_cut = fW/2;     // ramka: cięcie na środku + kołki ustalające
+plate_cut = 130;      // płyta: cięcie przesunięte względem ramki + jaskółcze ogony
+pin_d = 2.0;          // otwór na kołek z filamentu 1.75 mm (lub pręt 2 mm)
+clr = 0.15;           // luz na połączeniu
+dt_y = [22, 60, 98];  // pozycje jaskółczych ogonów
+module dt_region(extra=0){   // obszar lewej części płyty
+  translate([-1,-1,-1]) cube([plate_cut+1, fH+2, 50]);
+  for(y=dt_y) translate([plate_cut,y,-1]) linear_extrude(50)
+    offset(delta=extra) polygon([[-0.01,-4],[8,-6.5],[8,6.5],[-0.01,4]]);
+}
+module frame_pins(){
+  for(y=[fw/2+0.3, fH-fw/2-0.3]) translate([frame_cut-8, y, fD/2+lipT/2]) rotate([0,90,0]) cylinder(d=pin_d+0.2, h=16);
+}
+module frame_L(){ difference(){ intersection(){ frame(); translate([-1,-1,-1]) cube([frame_cut+1, fH+2, 50]); } frame_pins(); } }
+module frame_R(){ translate([-frame_cut,0,0]) difference(){ intersection(){ frame(); translate([frame_cut,-1,-1]) cube([fW, fH+2, 50]); } frame_pins(); } }
+module plate_L(){ intersection(){ plate(); dt_region(-clr/2); } }
+module plate_R(){ translate([-plate_cut,0,0]) difference(){ plate(); dt_region(clr/2); } }
+
 if(part=="frame") frame();
+else if(part=="frame_L") frame_L();
+else if(part=="frame_R") frame_R();
+else if(part=="plate_L") plate_L();
+else if(part=="plate_R") plate_R();
 else if(part=="plate") plate();
 else if(part=="hump") hump();
 else rotate([90,0,0]) {
@@ -164,4 +187,5 @@ else rotate([90,0,0]) {
   if(show_hump) color([0.95,0.95,0.93]) translate([hX,hY,fD+pT+2*explode]) hump();
   if(show_comp) electronics();
 }
+echo(str("Części: ramka L ", frame_cut, " / P ", fW-frame_cut, " ; płyta L ", plate_cut+8, " / P ", fW-plate_cut, " (x ", fH, ")"));
 echo(str("Ramka: ", fW, " x ", fH, " x ", fD, " | z płytą: ", fD+pT, " | z garbem: ", fD+pT+hD));
