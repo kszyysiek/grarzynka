@@ -19,7 +19,7 @@ fW = dW + 0.6 + 2*fw;  fH = dH + 0.6 + 2*fw;  fD = lipT + dT;
 fr = 4;
 // ---------- tył ekranu (wg rysunku OSOYOO, widok od tyłu: x od lewej, y od góry) ----------
 disp_m3   = [[32.0,20.9],[160.3,20.9],[32.0,87.0],[160.3,87.0]];   // otwory montażowe M3 ekranu
-disp_fpc  = [80, 18, 42, 28];    // złącze taśmy DSI (x,y,w,h) z zapasem
+disp_fpc  = [82, 22, 31, 21];    // złącze taśmy DSI (x,y,w,h) z zapasem
 disp_pwr  = [52, 38, 20, 22];    // złącze zasilania 5V/GND (2-pin) + przewody
 disp_usb  = [56, 86, 28, 14];    // micro-USB ekranu
 rail_h    = 3;                   // kanał pod pakietem na taśmę i przewody
@@ -46,6 +46,28 @@ module hexgrid(w,h,d=10,s=6,g=1.6){
   intersection(){ cube([w,h,d]);
     for(j=[0:ceil(h/dy)]) for(i=[0:ceil(w/dx)]) translate([i*dx+(j%2)*dx/2, j*dy, 0]) rotate(30) cylinder(d=s/0.866,h=d,$fn=6); }
 }
+
+// ================= MOCOWANIA =================
+// Płytki radiowe nie mają otworów -> dociski: słupek M2.5 przy każdym rogu + podkładka poszerzona M2.5 (Ø8, DIN 9021)
+// [x, y, dł. X, szer. Y, wysokość spodu płytki nad płytą] (współrzędne wnętrza garbu)
+plate_boards = [ [104, 10, 23, 60, 10],    // LoRa Wireless Stick (pionowo, piny w dół)
+                 [133, 12, 28, 55, 10] ];  // ESP32-WROOM-32U DevKit (pionowo, piny w dół)
+// płytki podwieszone pod dachem garbu: [x, y, dł. X, szer. Y, odstęp od dachu]
+roof_boards  = [ [102,  8, 58, 20, 4],     // Sonoff ZBDongle-E (płytka bez obudowy)
+                 [104, 32, 28, 15, 4],     // CC1101
+                 [104, 54, 41, 16, 4] ];   // nRF24L01 PA+LNA
+cp_off = 2.6;  cp_d = 5;  pcb = 1.6;
+function corner_posts(b) = b[2] > b[3]
+  ? [[b[0]-cp_off,b[1]],[b[0]-cp_off,b[1]+b[3]],[b[0]+b[2]+cp_off,b[1]],[b[0]+b[2]+cp_off,b[1]+b[3]]]
+  : [[b[0],b[1]-cp_off],[b[0]+b[2],b[1]-cp_off],[b[0],b[1]+b[3]+cp_off],[b[0]+b[2],b[1]+b[3]+cp_off]];
+function corner_pads(b) = [[b[0],b[1]],[b[0]+b[2]-3,b[1]],[b[0],b[1]+b[3]-3],[b[0]+b[2]-3,b[1]+b[3]-3]];
+// opaski (pałąki) na pakiet Pi+UPS: [noga x0, noga x1, stopka x0, stopka x1] w układzie pakietu
+straps = [[10,16, 2,10], [72,78, 78,86]];
+strap_post_h = 10;
+function strap_holes() = [ for(t=straps) for(y=[-2.9, stS[1]+2.8]) [st[0]+(t[2]+t[3])/2, st[1]+y] ];
+// ucha garbu (śruby M3 od zewnątrz w wkładki w płycie)
+ear_x = [22, 86, 150]; ear_l = 9; ear_w = 11; ear_z = 5; ear_t = 4;
+function ear_pos() = [ for(x=ear_x) for(y=[-ear_l/2, hH+ear_l/2]) [x,y] ];
 
 // ================= RAMKA =================
 frame_screws = [[fw/2+0.3,fH*0.25],[fw/2+0.3,fH*0.75],[fW-fw/2-0.3,fH*0.25],[fW-fw/2-0.3,fH*0.75],
@@ -74,11 +96,27 @@ module plate(){
       }
       // szyny pod pakietem (kanał 3 mm na taśmę DSI i przewody zasilania)
       for(dy=[6, stS[1]-10]) translate([hX+hw+st[0], hY+hw+st[1]+dy, pT]) cube([stS[0], 4, rail_h]);
+      translate([hX+hw, hY+hw, pT]) {
+        // słupki pod opaski pakietu
+        for(t=straps) for(b=[[-5.4,-0.2],[stS[1]+0.2,stS[1]+5.4]])
+          translate([st[0]+t[2], st[1]+b[0], 0]) cube([t[3]-t[2], b[1]-b[0], strap_post_h]);
+        // dociski płytek radiowych
+        for(b=plate_boards){
+          for(p=corner_posts(b)) translate([p[0],p[1],0]) cylinder(d=cp_d, h=b[4]+pcb);
+          for(p=corner_pads(b)) translate([p[0],p[1],0]) cube([3,3,b[4]]);
+        }
+      }
+      // słupki pod wkładki M3 garbu
+      for(e=ear_pos()) translate([hX+e[0], hY+e[1], pT]) cylinder(d=8, h=ear_z);
     }
+    // otwory: opaski M2.5, dociski M2.5, wkładki M3 garbu
+    translate([hX+hw, hY+hw, pT]) {
+      for(h=strap_holes()) translate([h[0],h[1],strap_post_h-8]) cylinder(d=2.2,h=9);
+      for(b=plate_boards) for(p=corner_posts(b)) translate([p[0],p[1],b[4]+pcb-8]) cylinder(d=2.2,h=9);
+    }
+    for(e=ear_pos()) translate([hX+e[0], hY+e[1], pT+ear_z-5.5]) cylinder(d=4.2, h=6);
     // śruby do ramki (stożkowe M2.5)
     for(p=frame_screws) translate([p[0],p[1],-1]){ cylinder(d=2.8,h=pT+2); translate([0,0,pT-0.4]) cylinder(d1=2.8,d2=5.4,h=1.41); }
-    // śruby garbu M3 (łeb wpuszczony od strony ekranu)
-    for(p=hump_bosses()) translate([hX+p[0],hY+p[1],-1]){ cylinder(d=3.4,h=pT+2); cylinder(d1=6.4,d2=3.4,h=1.5+1); }
     // okno nad złączem taśmy DSI ekranu
     let(c=dpos(disp_fpc[0],disp_fpc[1]+disp_fpc[3])) translate([c[0],c[1],-1]) rrect(disp_fpc[2],disp_fpc[3],pT+2,2);
     // okno nad złączem zasilania ekranu
@@ -87,13 +125,10 @@ module plate(){
     let(c=dpos(disp_usb[0],disp_usb[1]+disp_usb[3])) translate([c[0],c[1],-1]) rrect(disp_usb[2],disp_usb[3],pT+2,2);
     // śruby M3 do otworów ekranu (łeb stożkowy od strony garbu)
     for(h=disp_m3) let(c=dpos(h[0],h[1])) translate([c[0],c[1],-1]){ cylinder(d=3.4,h=pT+2); translate([0,0,pT+1-1.6]) cylinder(d1=3.4,d2=6.6,h=1.61); }
-    // otwory na opaski / przewody przy radiach
-    for(y=[20,50]) translate([hX+hw+125, hY+hw+y, -1]) rrect(10,4,pT+2,1.5);
   }
 }
 
 // ================= GARB =================
-function hump_bosses() = [[hw+5,hw+5],[hW-hw-5,hw+5],[hw+5,hH-hw-5],[hW-hw-5,hH-hw-5],[hW/2+10,hw+5],[hW/2+10,hH-hw-5]];
 module hump(){
   iW = hW-2*hw; iH = hH-2*hw;
   difference(){
@@ -105,22 +140,51 @@ module hump(){
     translate([hw+st[0]+14, hw+st[1]+38, hD-hw-1]) rrect(62, 12, hw+12, 2);
     // dach: kratka heksagonalna nad chłodzeniem Pi
     translate([hw+st[0]+8, hw+st[1]+54, hD-hw-12]) hexgrid(72, 20, 20);
-    // dach: kratka nad radiami
-    translate([hw+102, hw+8, hD-hw-12]) hexgrid(58, 66, 20);
+    // prawa ścianka: szczeliny wentylacyjne przy radiach
+    for(i=[0:4]) translate([hW-hw-1, hw+30+i*7, 8]) rrect(hw+2, 3.5, 18, 1.7);
     // górna ścianka: szczeliny wentylacyjne przy Pi
     for(i=[0:5]) translate([hw+st[0]+42+i*7, hH-hw-1, 10]) rrect(3.5, hw+2, 26, 1.7);
     // SMA 6.6 mm
     for(s=sma_top)   translate([hw+s[0], hH-hw-1, sma_z]) rotate([-90,0,0]) cylinder(d=6.6,h=hw+2);
     for(s=sma_right) translate([hW-hw-1, hw+s[0], sma_z]) rotate([0,90,0]) cylinder(d=6.6,h=hw+2);
   }
-  // słupki M3 (wkładki 4.2 mm)
-  for(p=hump_bosses()) translate([p[0],p[1],0]) difference(){
-    cylinder(d=8,h=12); translate([0,0,-1]) cylinder(d=4.2,h=9);
+  // ucha do przykręcenia od zewnątrz (M3 w wkładki w płycie), z klinem pod druk
+  for(e=ear_pos()) translate([e[0], e[1], 0]) {
+    sgn = e[1] < 0 ? -1 : 1;
+    difference(){
+      union(){
+        translate([-ear_w/2, -ear_l/2 - (sgn>0 ? 1.5 : 0), ear_z]) cube([ear_w, ear_l+1.5, ear_t]);
+        // klin
+        translate([-ear_w/2, sgn<0 ? ear_l/2+1.5 : -ear_l/2-1.5, ear_z+ear_t-0.01]) rotate([0,90,0])
+          linear_extrude(ear_w) polygon(sgn<0 ? [[0,0],[0,-ear_l],[-ear_l,0]] : [[0,0],[0,ear_l],[-ear_l,0]]);
+      }
+      translate([0,0,ear_z-1]) cylinder(d=3.4, h=40);
+      translate([0,0,ear_z+ear_t]) cylinder(d=6.5, h=40);   // miejsce na łeb
+    }
+  }
+  // płytki podwieszone pod dachem: słupki M2.5 + podkładki
+  translate([hw,hw,0]) for(b=roof_boards){
+    top = hD-hw;
+    for(p=corner_posts(b)) translate([p[0],p[1],top-b[4]-pcb]) difference(){
+      cylinder(d=cp_d, h=b[4]+pcb+0.5); translate([0,0,-1]) cylinder(d=2.2,h=8); }
+    for(p=corner_pads(b)) translate([p[0],p[1],top-b[4]]) cube([3,3,b[4]+0.5]);
   }
   // docisk pakietu od dachu
-  translate([hw+st[0]+20, hw+st[1]+20, rail_h+stS[2]+0.5]) cube([50,4,hD-hw-rail_h-stS[2]-0.5]);
-  // uchwyty na CC1101 i nRF24 na prawej ściance (pionowo)
-  for(y=[56,10]) translate([hW-hw-6, hw+y, 10]) difference(){ cube([6, 30, 4]); translate([1.5,-1,1.5]) cube([1.8,32,3]); }
+  translate([hw+st[0]+20, hw+st[1]+20, rail_h+stS[2]+0.5]) cube([50,4,hD-hw-rail_h-stS[2]]);
+}
+
+// ================= OPASKA PAKIETU (drukuj 2 szt.) =================
+module strap(i=0){
+  t = straps[i]; topz = rail_h+stS[2]+0.2; th = 1.8;
+  difference(){
+    union(){
+      translate([t[0], -2.2, topz]) cube([t[1]-t[0], stS[1]+4.4, th]);            // belka
+      for(y=[-2.2, stS[1]+0.2]) translate([t[0], y, strap_post_h]) cube([t[1]-t[0], 2, topz+th-strap_post_h]); // nogi
+      for(b=[[-5.4,-0.2],[stS[1]+0.2,stS[1]+5.4]])                                  // stopki
+        translate([min(t[0],t[2]), b[0], strap_post_h]) cube([max(t[1],t[3])-min(t[0],t[2]), b[1]-b[0], 3]);
+    }
+    for(y=[-2.9, stS[1]+2.8]) translate([(t[2]+t[3])/2, y, strap_post_h-1]) cylinder(d=2.8,h=5);
+  }
 }
 
 // ================= ELEKTRONIKA (podgląd) =================
@@ -140,13 +204,19 @@ module electronics(){
       color([0.6,0.6,0.62]) translate([1,55.6,2]) cube([21,16,52]);
       color([0.3,0.3,0.32]) translate([30,55.6,12]) cube([40,9,30]);
     }
-    // radia płasko na płycie
-    color([0.1,0.1,0.1])   translate([100,56,0]) cube([60,23,8]);   // LoRa stick
-    color([0.15,0.15,0.2]) translate([100,26,0]) cube([52,28,13]);  // ESP32-WROOM-32U
-    color([0.1,0.55,0.2])  translate([100,3,0])  cube([55,20,6]);   // Zigbee (płytka)
-    // pionowo przy prawej ściance
-    color([0.1,0.35,0.6])  translate([hW-2*hw-6,58,12]) cube([1.6,28,15]);  // CC1101
-    color([0.1,0.1,0.1])   translate([hW-2*hw-6,12,12]) cube([1.6,28,16]);  // nRF24 PA
+    // opaski
+    color([0.95,0.6,0.1]) for(i=[0,1]) translate(st) strap(i);
+    // radia na płycie
+    cols = [[0.1,0.1,0.1],[0.15,0.15,0.2]];
+    for(i=[0:len(plate_boards)-1]) let(b=plate_boards[i]) {
+      color(cols[i]) translate([b[0],b[1],b[4]]) cube([b[2],b[3],pcb+6]);
+      color([0.8,0.8,0.8]) for(p=corner_posts(b)) translate([p[0],p[1],b[4]+pcb]) cylinder(d=8,h=0.8);
+    }
+    // radia pod dachem
+    rcols = [[0.1,0.55,0.2],[0.1,0.35,0.6],[0.1,0.1,0.1]];
+    for(i=[0:len(roof_boards)-1]) let(b=roof_boards[i]) {
+      color(rcols[i]) translate([b[0],b[1],hD-hw-b[4]-pcb-4]) cube([b[2],b[3],pcb+4]);
+    }
   }
   // anteny
   translate([hX, hY, fD+pT+2*explode]) {
@@ -162,9 +232,9 @@ pin_d = 2.0;          // otwór na kołek z filamentu 1.75 mm (lub pręt 2 mm)
 clr = 0.15;           // luz na połączeniu
 dt_y = [22, 60, 98];  // pozycje jaskółczych ogonów
 module dt_region(extra=0){   // obszar lewej części płyty
-  translate([-1,-1,-1]) cube([plate_cut+1, fH+2, 50]);
+  translate([-1,-1,-1]) cube([plate_cut+1+extra, fH+2, 50]);
   for(y=dt_y) translate([plate_cut,y,-1]) linear_extrude(50)
-    offset(delta=extra) polygon([[-0.01,-4],[8,-6.5],[8,6.5],[-0.01,4]]);
+    offset(delta=extra) polygon([[-1,-4],[0,-4],[8,-6.5],[8,6.5],[0,4],[-1,4]]);
 }
 module frame_pins(){
   for(y=[fw/2+0.3, fH-fw/2-0.3]) translate([frame_cut-8, y, fD/2+lipT/2]) rotate([0,90,0]) cylinder(d=pin_d+0.2, h=16);
@@ -179,6 +249,7 @@ else if(part=="frame_L") frame_L();
 else if(part=="frame_R") frame_R();
 else if(part=="plate_L") plate_L();
 else if(part=="plate_R") plate_R();
+else if(part=="strap") strap(0);
 else if(part=="plate") plate();
 else if(part=="hump") hump();
 else rotate([90,0,0]) {
